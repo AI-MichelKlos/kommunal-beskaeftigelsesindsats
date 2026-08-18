@@ -1,2 +1,3 @@
-status: afventer
+status: partial
+tid_utc: 2026-08-18T19:53:15Z
 dato_dk: 2026-08-18
