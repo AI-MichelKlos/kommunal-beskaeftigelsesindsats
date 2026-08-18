@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "title": "Kommunal beskæftigelsesindsats",
+    "subtitle": "Ledighed, varighed og vej til job for dagpengemodtagere og arbejdsmarkedsparate kontanthjælpsmodtagere",
+    "updated": "Afventer første dataopdatering",
+    "retrievedAt": null,
+    "source": "Jobindsats.dk / STAR",
+    "mapSource": "Dataforsyningen",
+    "sourceStatus": {},
+    "updateStatus": {"state": "pending", "successful": [], "failed": [], "checkedAt": null}
+  },
+  "municipalities": {},
+  "regions": {},
+  "national": {}
+}
