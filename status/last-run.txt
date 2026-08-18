@@ -1,0 +1,2 @@
+status: afventer
+dato_dk: 2026-08-18
