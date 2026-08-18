@@ -90,3 +90,5 @@ jobs:
       - name: Markér fejl
         if: steps.gate.outputs.run == 'true' && steps.update.outputs.code != '0'
         run: exit 1
+
+# Første verificerede API-test efter tilføjelse af API_ADGANG: 2026-08-18
