@@ -2,7 +2,7 @@
   "meta": {
     "title": "Kommunal beskæftigelsesindsats",
     "updated": "19. august 2026",
-    "retrievedAt": "2026-08-19T20:41:35+02:00",
+    "retrievedAt": "2026-08-19T20:49:14+02:00",
     "source": "Jobindsats.dk / STAR",
     "sourceStatus": {
       "unemployment": {
@@ -10,7 +10,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i01",
         "latestPeriod": "2026M07",
-        "checkedAt": "2026-08-19T20:41:35+02:00",
+        "checkedAt": "2026-08-19T20:49:14+02:00",
         "note": "Faktisk registerbaseret ledighed. Ikke sæsonkorrigeret på kommuneniveau."
       },
       "unemploymentNational": {
@@ -18,7 +18,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i01",
         "latestPeriod": "2026M07",
-        "checkedAt": "2026-08-19T20:41:35+02:00",
+        "checkedAt": "2026-08-19T20:49:14+02:00",
         "note": "Officielt landstal fra samme Jobindsats-måling."
       },
       "longterm": {
@@ -26,7 +26,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i09",
         "latestPeriod": "2026M06",
-        "checkedAt": "2026-08-19T20:41:35+02:00",
+        "checkedAt": "2026-08-19T20:49:14+02:00",
         "note": ""
       },
       "longtermNational": {
@@ -34,7 +34,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i09",
         "latestPeriod": "2026M06",
-        "checkedAt": "2026-08-19T20:41:35+02:00",
+        "checkedAt": "2026-08-19T20:49:14+02:00",
         "note": ""
       },
       "cashAssistance": {
@@ -42,7 +42,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y60a02",
         "latestPeriod": "2026M07",
-        "checkedAt": "2026-08-19T20:41:35+02:00",
+        "checkedAt": "2026-08-19T20:49:14+02:00",
         "note": "Kontanthjælp opgjort som personer, fuldtidspersoner og andele."
       },
       "cashVisitation": {
@@ -50,7 +50,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y60a02",
         "latestPeriod": "2026M07",
-        "checkedAt": "2026-08-19T20:41:35+02:00",
+        "checkedAt": "2026-08-19T20:49:14+02:00",
         "note": "Seneste fordeling af fuldtidspersoner efter visitationskategori."
       },
       "activation": {
@@ -58,32 +58,24 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y60c07",
         "latestPeriod": "2026M07",
-        "checkedAt": "2026-08-19T20:41:35+02:00",
-        "note": "Aktiveringsgrad og andel aktiveringsberørte."
+        "checkedAt": "2026-08-19T20:49:14+02:00",
+        "note": "Aktiveringsgrad og andel aktiveringsberørte for visitationskategori i alt, både jobparate og ikke-jobparate."
       },
       "offers": {
         "state": "ok",
         "source": "Jobindsats.dk / STAR",
         "dataset": "y60c02",
         "latestPeriod": "2026M07",
-        "checkedAt": "2026-08-19T20:41:35+02:00",
-        "note": "Aktiveringsforløb fordelt på overordnede tilbudstyper."
+        "checkedAt": "2026-08-19T20:49:14+02:00",
+        "note": "Aktiveringsforløb for visitationskategori i alt, både jobparate og ikke-jobparate, fordelt på overordnede tilbudstyper."
       },
       "ordinaryHours": {
         "state": "ok",
         "source": "Jobindsats.dk / STAR",
         "dataset": "y60j01",
         "latestPeriod": "2026M06",
-        "checkedAt": "2026-08-19T20:41:35+02:00",
+        "checkedAt": "2026-08-19T20:49:14+02:00",
         "note": "Kontanthjælpsmodtagere med ordinære løntimer i måneden."
-      },
-      "outcomes": {
-        "state": "ok",
-        "source": "Jobindsats.dk / STAR",
-        "dataset": "y60b15",
-        "latestPeriod": "2025Q01",
-        "checkedAt": "2026-08-19T20:41:35+02:00",
-        "note": "Status efter afsluttet kontanthjælpsforløb. Samme fuldt modnede kvartal anvendes for alle områder."
       }
     },
     "updateStatus": {
@@ -97,11 +89,10 @@
         "cashVisitation",
         "activation",
         "offers",
-        "ordinaryHours",
-        "outcomes"
+        "ordinaryHours"
       ],
       "failed": [],
-      "checkedAt": "2026-08-19T20:41:35+02:00"
+      "checkedAt": "2026-08-19T20:49:14+02:00"
     }
   },
   "municipalities": {
@@ -1435,25 +1426,6 @@
           7.2,
           8.3
         ]
-      },
-      "outcomes": {
-        "name": "Albertslund",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          36.3,
-          32.5,
-          32.5
-        ],
-        "education": [
-          8.8,
-          10,
-          12.5
-        ]
       }
     },
     "alleroed": {
@@ -2785,25 +2757,6 @@
           7.4,
           9.4,
           6.7
-        ]
-      },
-      "outcomes": {
-        "name": "Allerød",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          44,
-          28,
-          32
-        ],
-        "education": [
-          null,
-          16,
-          24
         ]
       }
     },
@@ -4137,25 +4090,6 @@
           9.8,
           9.5
         ]
-      },
-      "outcomes": {
-        "name": "Ballerup",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          41.3,
-          37.5,
-          29.8
-        ],
-        "education": [
-          3.8,
-          3.8,
-          4.8
-        ]
       }
     },
     "bornholm": {
@@ -5487,25 +5421,6 @@
           15.9,
           18.5,
           20.7
-        ]
-      },
-      "outcomes": {
-        "name": "Bornholm",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          52.1,
-          52.1,
-          38
-        ],
-        "education": [
-          null,
-          null,
-          5.6
         ]
       }
     },
@@ -6839,25 +6754,6 @@
           8.7,
           9.7
         ]
-      },
-      "outcomes": {
-        "name": "Brøndby",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          41,
-          40.2,
-          31.1
-        ],
-        "education": [
-          4.1,
-          4.9,
-          4.9
-        ]
       }
     },
     "dragoer": {
@@ -8189,25 +8085,6 @@
           5.6,
           8.8,
           8.5
-        ]
-      },
-      "outcomes": {
-        "name": "Dragør",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          36.4,
-          36.4,
-          36.4
-        ],
-        "education": [
-          null,
-          null,
-          null
         ]
       }
     },
@@ -9541,25 +9418,6 @@
           9.6,
           9.5
         ]
-      },
-      "outcomes": {
-        "name": "Egedal",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          44,
-          34,
-          38
-        ],
-        "education": [
-          6,
-          8,
-          6
-        ]
       }
     },
     "fredensborg": {
@@ -10891,25 +10749,6 @@
           7.4,
           6.8,
           8.9
-        ]
-      },
-      "outcomes": {
-        "name": "Fredensborg",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          36.5,
-          27,
-          27
-        ],
-        "education": [
-          4.1,
-          5.4,
-          4.1
         ]
       }
     },
@@ -12243,25 +12082,6 @@
           7.8,
           8.1
         ]
-      },
-      "outcomes": {
-        "name": "Frederiksberg",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          38.4,
-          34.1,
-          31.9
-        ],
-        "education": [
-          3.2,
-          4.9,
-          3.8
-        ]
       }
     },
     "frederikssund": {
@@ -13593,25 +13413,6 @@
           10,
           9.2,
           9.6
-        ]
-      },
-      "outcomes": {
-        "name": "Frederikssund",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          45.6,
-          45.6,
-          35.6
-        ],
-        "education": [
-          6.7,
-          6.7,
-          4.4
         ]
       }
     },
@@ -14945,25 +14746,6 @@
           12.2,
           11.7
         ]
-      },
-      "outcomes": {
-        "name": "Furesø",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          37.5,
-          37.5,
-          32.5
-        ],
-        "education": [
-          12.5,
-          null,
-          null
-        ]
       }
     },
     "gentofte": {
@@ -16295,25 +16077,6 @@
           10.2,
           10.6,
           9.4
-        ]
-      },
-      "outcomes": {
-        "name": "Gentofte",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          44.8,
-          38.5,
-          36.5
-        ],
-        "education": [
-          5.2,
-          4.2,
-          null
         ]
       }
     },
@@ -17647,25 +17410,6 @@
           10.6,
           10.5
         ]
-      },
-      "outcomes": {
-        "name": "Gladsaxe",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          35,
-          31.6,
-          25.6
-        ],
-        "education": [
-          5.1,
-          6,
-          9.4
-        ]
       }
     },
     "glostrup": {
@@ -18997,25 +18741,6 @@
           11.3,
           9.9,
           11.5
-        ]
-      },
-      "outcomes": {
-        "name": "Glostrup",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          23.8,
-          28.6,
-          33.3
-        ],
-        "education": [
-          null,
-          null,
-          null
         ]
       }
     },
@@ -20349,25 +20074,6 @@
           9.8,
           11.6
         ]
-      },
-      "outcomes": {
-        "name": "Gribskov",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          55.3,
-          52.9,
-          40
-        ],
-        "education": [
-          null,
-          4.7,
-          7.1
-        ]
       }
     },
     "halsnaes": {
@@ -21699,25 +21405,6 @@
           11.9,
           11.1,
           11.8
-        ]
-      },
-      "outcomes": {
-        "name": "Halsnæs",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          38.5,
-          38.5,
-          32.3
-        ],
-        "education": [
-          4.6,
-          6.2,
-          10.8
         ]
       }
     },
@@ -23051,25 +22738,6 @@
           11.1,
           10.8
         ]
-      },
-      "outcomes": {
-        "name": "Helsingør",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          36,
-          36,
-          30.3
-        ],
-        "education": [
-          4.5,
-          4.5,
-          5.1
-        ]
       }
     },
     "herlev": {
@@ -24401,25 +24069,6 @@
           8.8,
           8.5,
           8.5
-        ]
-      },
-      "outcomes": {
-        "name": "Herlev",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          28.8,
-          26.9,
-          23.1
-        ],
-        "education": [
-          7.7,
-          9.6,
-          13.5
         ]
       }
     },
@@ -25753,25 +25402,6 @@
           10.6,
           10.2
         ]
-      },
-      "outcomes": {
-        "name": "Hillerød",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          49.5,
-          48.4,
-          36.6
-        ],
-        "education": [
-          5.4,
-          6.5,
-          10.8
-        ]
       }
     },
     "hvidovre": {
@@ -27103,25 +26733,6 @@
           6.6,
           10.2,
           9.6
-        ]
-      },
-      "outcomes": {
-        "name": "Hvidovre",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          41.3,
-          35.5,
-          35.5
-        ],
-        "education": [
-          7.4,
-          9.1,
-          4.1
         ]
       }
     },
@@ -28455,25 +28066,6 @@
           10.3,
           9.5
         ]
-      },
-      "outcomes": {
-        "name": "Høje-Taastrup",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          26.7,
-          28.3,
-          25
-        ],
-        "education": [
-          8.3,
-          10,
-          10.8
-        ]
       }
     },
     "hoersholm": {
@@ -29805,25 +29397,6 @@
           7.2,
           7.3,
           8.9
-        ]
-      },
-      "outcomes": {
-        "name": "Hørsholm",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          43.3,
-          40,
-          36.7
-        ],
-        "education": [
-          13.3,
-          13.3,
-          null
         ]
       }
     },
@@ -31157,25 +30730,6 @@
           11.2,
           10.6
         ]
-      },
-      "outcomes": {
-        "name": "Ishøj",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          31,
-          27.4,
-          22.6
-        ],
-        "education": [
-          null,
-          4.8,
-          3.6
-        ]
       }
     },
     "koebenhavn": {
@@ -32507,25 +32061,6 @@
           9.7,
           10,
           9.5
-        ]
-      },
-      "outcomes": {
-        "name": "København",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          33,
-          30.3,
-          26.9
-        ],
-        "education": [
-          5.6,
-          6.7,
-          8.4
         ]
       }
     },
@@ -33859,25 +33394,6 @@
           10.4,
           12.4
         ]
-      },
-      "outcomes": {
-        "name": "Lyngby-Taarbæk",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          44.4,
-          44.4,
-          34.9
-        ],
-        "education": [
-          null,
-          4.8,
-          6.3
-        ]
       }
     },
     "rudersdal": {
@@ -35209,25 +34725,6 @@
           10.2,
           10,
           9.7
-        ]
-      },
-      "outcomes": {
-        "name": "Rudersdal",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          33.8,
-          27.7,
-          26.2
-        ],
-        "education": [
-          4.6,
-          10.8,
-          6.2
         ]
       }
     },
@@ -36561,25 +36058,6 @@
           8.6,
           8.2
         ]
-      },
-      "outcomes": {
-        "name": "Rødovre",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          37.2,
-          34.9,
-          34.1
-        ],
-        "education": [
-          3.1,
-          4.7,
-          7.8
-        ]
       }
     },
     "taarnby": {
@@ -37911,25 +37389,6 @@
           8.8,
           10.2,
           8.6
-        ]
-      },
-      "outcomes": {
-        "name": "Tårnby",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          46.7,
-          45.3,
-          38.7
-        ],
-        "education": [
-          4,
-          6.7,
-          5.3
         ]
       }
     },
@@ -39263,25 +38722,6 @@
           11.5,
           12.4
         ]
-      },
-      "outcomes": {
-        "name": "Vallensbæk",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          45.5,
-          36.4,
-          39.4
-        ],
-        "education": [
-          null,
-          null,
-          null
-        ]
       }
     },
     "faxe": {
@@ -40613,25 +40053,6 @@
           7.1,
           7.4,
           8
-        ]
-      },
-      "outcomes": {
-        "name": "Faxe",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          31.3,
-          27.3,
-          29.3
-        ],
-        "education": [
-          4,
-          6.1,
-          9.1
         ]
       }
     },
@@ -41965,25 +41386,6 @@
           9.3,
           9.2
         ]
-      },
-      "outcomes": {
-        "name": "Greve",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          40.2,
-          35.4,
-          30.5
-        ],
-        "education": [
-          8.5,
-          8.5,
-          8.5
-        ]
       }
     },
     "guldborgsund": {
@@ -43315,25 +42717,6 @@
           8.8,
           9.1,
           9.1
-        ]
-      },
-      "outcomes": {
-        "name": "Guldborgsund",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          32.2,
-          28.3,
-          29.6
-        ],
-        "education": [
-          7.2,
-          9.2,
-          7.2
         ]
       }
     },
@@ -44667,25 +44050,6 @@
           9.5,
           9.5
         ]
-      },
-      "outcomes": {
-        "name": "Holbæk",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          43.2,
-          35.6,
-          34.8
-        ],
-        "education": [
-          6.8,
-          6.1,
-          7.6
-        ]
       }
     },
     "kalundborg": {
@@ -46017,25 +45381,6 @@
           8.3,
           8.6,
           8.5
-        ]
-      },
-      "outcomes": {
-        "name": "Kalundborg",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          39.2,
-          39.2,
-          34.6
-        ],
-        "education": [
-          7.7,
-          6.9,
-          4.6
         ]
       }
     },
@@ -47369,25 +46714,6 @@
           10.5,
           10
         ]
-      },
-      "outcomes": {
-        "name": "Køge",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          41.5,
-          35.4,
-          29.2
-        ],
-        "education": [
-          5.4,
-          6.2,
-          5.4
-        ]
       }
     },
     "lejre": {
@@ -48719,25 +48045,6 @@
           8.6,
           9,
           11.4
-        ]
-      },
-      "outcomes": {
-        "name": "Lejre",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          34.9,
-          34.9,
-          34.9
-        ],
-        "education": [
-          null,
-          null,
-          null
         ]
       }
     },
@@ -50071,25 +49378,6 @@
           11.1,
           10.9
         ]
-      },
-      "outcomes": {
-        "name": "Lolland",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          47.1,
-          41.9,
-          38.1
-        ],
-        "education": [
-          4.5,
-          9,
-          7.7
-        ]
       }
     },
     "naestved": {
@@ -51421,25 +50709,6 @@
           9.4,
           9.8,
           9.6
-        ]
-      },
-      "outcomes": {
-        "name": "Næstved",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          38.8,
-          32.2,
-          27.9
-        ],
-        "education": [
-          4.4,
-          7.1,
-          7.1
         ]
       }
     },
@@ -52773,25 +52042,6 @@
           11.7,
           11.4
         ]
-      },
-      "outcomes": {
-        "name": "Odsherred",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          41.2,
-          42.6,
-          29.4
-        ],
-        "education": [
-          7.4,
-          8.8,
-          8.8
-        ]
       }
     },
     "ringsted": {
@@ -54123,25 +53373,6 @@
           6.4,
           7.7,
           7.3
-        ]
-      },
-      "outcomes": {
-        "name": "Ringsted",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          53.5,
-          47.7,
-          45.3
-        ],
-        "education": [
-          3.5,
-          null,
-          4.7
         ]
       }
     },
@@ -55475,25 +54706,6 @@
           12.5,
           12.4
         ]
-      },
-      "outcomes": {
-        "name": "Roskilde",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          46.3,
-          38.8,
-          34.7
-        ],
-        "education": [
-          7.4,
-          10.7,
-          8.3
-        ]
       }
     },
     "slagelse": {
@@ -56825,25 +56037,6 @@
           9.1,
           8.9,
           9.2
-        ]
-      },
-      "outcomes": {
-        "name": "Slagelse",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          42,
-          38.7,
-          29.6
-        ],
-        "education": [
-          5.3,
-          5.8,
-          6.6
         ]
       }
     },
@@ -58177,25 +57370,6 @@
           8,
           8.7
         ]
-      },
-      "outcomes": {
-        "name": "Solrød",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          63.3,
-          53.3,
-          40
-        ],
-        "education": [
-          null,
-          null,
-          null
-        ]
       }
     },
     "soroe": {
@@ -59528,25 +58702,6 @@
           6.8,
           6.5
         ]
-      },
-      "outcomes": {
-        "name": "Sorø",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          31.9,
-          30.6,
-          22.2
-        ],
-        "education": [
-          8.3,
-          6.9,
-          8.3
-        ]
       }
     },
     "stevns": {
@@ -60877,25 +60032,6 @@
           6.4,
           8.7,
           8.6,
-          9.3
-        ]
-      },
-      "outcomes": {
-        "name": "Stevns",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          46.5,
-          39.5,
-          25.6
-        ],
-        "education": [
-          null,
-          null,
           9.3
         ]
       }
@@ -62230,25 +61366,6 @@
           8.8,
           10.1
         ]
-      },
-      "outcomes": {
-        "name": "Vordingborg",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          38.4,
-          36.6,
-          30.4
-        ],
-        "education": [
-          5.4,
-          7.1,
-          7.1
-        ]
       }
     },
     "assens": {
@@ -63580,25 +62697,6 @@
           11.6,
           13.4,
           12.6
-        ]
-      },
-      "outcomes": {
-        "name": "Assens",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          42.4,
-          32.6,
-          29.3
-        ],
-        "education": [
-          3.3,
-          6.5,
-          5.4
         ]
       }
     },
@@ -64932,25 +64030,6 @@
           8.2,
           10.2
         ]
-      },
-      "outcomes": {
-        "name": "Billund",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          34.1,
-          29.5,
-          20.5
-        ],
-        "education": [
-          null,
-          null,
-          null
-        ]
       }
     },
     "esbjerg": {
@@ -66283,25 +65362,6 @@
           9.6,
           10.4
         ]
-      },
-      "outcomes": {
-        "name": "Esbjerg",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          38.9,
-          31.7,
-          29.5
-        ],
-        "education": [
-          3.1,
-          7.8,
-          7.5
-        ]
       }
     },
     "fanoe": {
@@ -67585,25 +66645,6 @@
           5.3,
           5.6,
           11.1
-        ]
-      },
-      "outcomes": {
-        "name": "Fanø",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          null,
-          null,
-          null
-        ],
-        "education": [
-          null,
-          null,
-          null
         ]
       }
     },
@@ -68937,25 +67978,6 @@
           8.2,
           8.9
         ]
-      },
-      "outcomes": {
-        "name": "Fredericia",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          38.4,
-          34.9,
-          32.2
-        ],
-        "education": [
-          3.4,
-          7.5,
-          7.5
-        ]
       }
     },
     "faaborg-midtfyn": {
@@ -70287,25 +69309,6 @@
           9.8,
           10.7,
           9.8
-        ]
-      },
-      "outcomes": {
-        "name": "Faaborg-Midtfyn",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          46.3,
-          46.3,
-          38.9
-        ],
-        "education": [
-          null,
-          3.7,
-          3.7
         ]
       }
     },
@@ -71639,25 +70642,6 @@
           9.7,
           9.7
         ]
-      },
-      "outcomes": {
-        "name": "Haderslev",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          43.7,
-          35.9,
-          26.8
-        ],
-        "education": [
-          5.6,
-          9.2,
-          14.1
-        ]
       }
     },
     "kerteminde": {
@@ -72989,25 +71973,6 @@
           9.1,
           9.6,
           9
-        ]
-      },
-      "outcomes": {
-        "name": "Kerteminde",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          48.5,
-          54.5,
-          42.4
-        ],
-        "education": [
-          12.1,
-          null,
-          9.1
         ]
       }
     },
@@ -74341,25 +73306,6 @@
           8.4,
           9.7
         ]
-      },
-      "outcomes": {
-        "name": "Kolding",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          45.5,
-          43.6,
-          40
-        ],
-        "education": [
-          4.1,
-          4.1,
-          5.5
-        ]
       }
     },
     "langeland": {
@@ -75691,25 +74637,6 @@
           9.3,
           9.2,
           8.8
-        ]
-      },
-      "outcomes": {
-        "name": "Langeland",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          20.7,
-          20.7,
-          13.8
-        ],
-        "education": [
-          null,
-          13.8,
-          17.2
         ]
       }
     },
@@ -77043,25 +75970,6 @@
           11.5,
           12.6
         ]
-      },
-      "outcomes": {
-        "name": "Middelfart",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          32.1,
-          29.6,
-          23.5
-        ],
-        "education": [
-          4.9,
-          null,
-          null
-        ]
       }
     },
     "nordfyns": {
@@ -78393,25 +77301,6 @@
           10.1,
           9.1,
           7.6
-        ]
-      },
-      "outcomes": {
-        "name": "Nordfyns",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          48.4,
-          40.3,
-          30.6
-        ],
-        "education": [
-          null,
-          4.8,
-          4.8
         ]
       }
     },
@@ -79745,25 +78634,6 @@
           11,
           11.3
         ]
-      },
-      "outcomes": {
-        "name": "Nyborg",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          43.8,
-          43.8,
-          41.1
-        ],
-        "education": [
-          null,
-          null,
-          null
-        ]
       }
     },
     "odense": {
@@ -81095,25 +79965,6 @@
           11.6,
           11.7,
           12.6
-        ]
-      },
-      "outcomes": {
-        "name": "Odense",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          39.5,
-          33.5,
-          32.3
-        ],
-        "education": [
-          6,
-          8.8,
-          10.2
         ]
       }
     },
@@ -82447,25 +81298,6 @@
           7.9,
           10.4
         ]
-      },
-      "outcomes": {
-        "name": "Svendborg",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          39.6,
-          32.7,
-          29.6
-        ],
-        "education": [
-          3.8,
-          4.4,
-          5.7
-        ]
       }
     },
     "soenderborg": {
@@ -83797,25 +82629,6 @@
           12.4,
           12.8,
           13.4
-        ]
-      },
-      "outcomes": {
-        "name": "Sønderborg",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          58.2,
-          49.4,
-          46.8
-        ],
-        "education": [
-          1.9,
-          3.8,
-          5.1
         ]
       }
     },
@@ -85149,25 +83962,6 @@
           13,
           13.1
         ]
-      },
-      "outcomes": {
-        "name": "Tønder",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          30.2,
-          28.1,
-          27.1
-        ],
-        "education": [
-          3.1,
-          null,
-          null
-        ]
       }
     },
     "varde": {
@@ -86499,25 +85293,6 @@
           8.3,
           9,
           9.6
-        ]
-      },
-      "outcomes": {
-        "name": "Varde",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          57.1,
-          47.6,
-          45.2
-        ],
-        "education": [
-          4.8,
-          6,
-          7.1
         ]
       }
     },
@@ -87851,25 +86626,6 @@
           8.7,
           7.1
         ]
-      },
-      "outcomes": {
-        "name": "Vejen",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          38.7,
-          36.6,
-          35.5
-        ],
-        "education": [
-          5.4,
-          4.3,
-          5.4
-        ]
       }
     },
     "vejle": {
@@ -89202,25 +87958,6 @@
           12.7,
           12.7
         ]
-      },
-      "outcomes": {
-        "name": "Vejle",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          42,
-          37.1,
-          30.8
-        ],
-        "education": [
-          1.7,
-          5.6,
-          5.2
-        ]
       }
     },
     "aeroe": {
@@ -90548,25 +89285,6 @@
           10.4,
           24,
           18
-        ]
-      },
-      "outcomes": {
-        "name": "Ærø",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          37.5,
-          37.5,
-          null
-        ],
-        "education": [
-          null,
-          null,
-          null
         ]
       }
     },
@@ -91900,25 +90618,6 @@
           9.4,
           9.2
         ]
-      },
-      "outcomes": {
-        "name": "Aabenraa",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          36.9,
-          35,
-          32
-        ],
-        "education": [
-          null,
-          2.9,
-          5.8
-        ]
       }
     },
     "favrskov": {
@@ -93250,25 +91949,6 @@
           12.8,
           13,
           12.5
-        ]
-      },
-      "outcomes": {
-        "name": "Favrskov",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          43.1,
-          35.4,
-          36.9
-        ],
-        "education": [
-          null,
-          null,
-          4.6
         ]
       }
     },
@@ -94602,25 +93282,6 @@
           13.5,
           15.2
         ]
-      },
-      "outcomes": {
-        "name": "Hedensted",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          50.9,
-          44.7,
-          41.2
-        ],
-        "education": [
-          null,
-          3.5,
-          2.6
-        ]
       }
     },
     "herning": {
@@ -95952,25 +94613,6 @@
           8.8,
           8.5,
           9.5
-        ]
-      },
-      "outcomes": {
-        "name": "Herning",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          42.6,
-          37.9,
-          30
-        ],
-        "education": [
-          3.2,
-          5.3,
-          4.7
         ]
       }
     },
@@ -97304,25 +95946,6 @@
           13.3,
           12.6
         ]
-      },
-      "outcomes": {
-        "name": "Holstebro",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          40.6,
-          39.1,
-          32.8
-        ],
-        "education": [
-          8.6,
-          10.9,
-          13.3
-        ]
       }
     },
     "horsens": {
@@ -98654,25 +97277,6 @@
           11.2,
           10.2,
           10
-        ]
-      },
-      "outcomes": {
-        "name": "Horsens",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          39.4,
-          36.1,
-          35.7
-        ],
-        "education": [
-          3.3,
-          3.7,
-          5.4
         ]
       }
     },
@@ -100006,25 +98610,6 @@
           12.7,
           13.6
         ]
-      },
-      "outcomes": {
-        "name": "Ikast-Brande",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          46.6,
-          43.1,
-          32.8
-        ],
-        "education": [
-          5.2,
-          6.9,
-          null
-        ]
       }
     },
     "lemvig": {
@@ -101356,25 +99941,6 @@
           13.9,
           16.2,
           9.5
-        ]
-      },
-      "outcomes": {
-        "name": "Lemvig",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          51.9,
-          44.4,
-          29.6
-        ],
-        "education": [
-          11.1,
-          11.1,
-          null
         ]
       }
     },
@@ -102708,25 +101274,6 @@
           8.3,
           8.9
         ]
-      },
-      "outcomes": {
-        "name": "Norddjurs",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          35.7,
-          31.6,
-          27.6
-        ],
-        "education": [
-          null,
-          3.1,
-          null
-        ]
       }
     },
     "odder": {
@@ -104058,25 +102605,6 @@
           11,
           10.9,
           11
-        ]
-      },
-      "outcomes": {
-        "name": "Odder",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          37.3,
-          47.1,
-          35.3
-        ],
-        "education": [
-          5.9,
-          9.8,
-          11.8
         ]
       }
     },
@@ -105410,25 +103938,6 @@
           9.1,
           10.8
         ]
-      },
-      "outcomes": {
-        "name": "Randers",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          42,
-          34.9,
-          32.2
-        ],
-        "education": [
-          4.1,
-          5.4,
-          5.4
-        ]
       }
     },
     "ringkoebing-skjern": {
@@ -106761,25 +105270,6 @@
           13.7,
           13.5
         ]
-      },
-      "outcomes": {
-        "name": "Ringkøbing-Skjern",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          42.7,
-          37.3,
-          31.8
-        ],
-        "education": [
-          3.6,
-          2.7,
-          5.5
-        ]
       }
     },
     "samsoe": {
@@ -108071,25 +106561,6 @@
           15.8,
           26.3,
           21.1
-        ]
-      },
-      "outcomes": {
-        "name": "Samsø",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          44.4,
-          55.6,
-          null
-        ],
-        "education": [
-          null,
-          null,
-          null
         ]
       }
     },
@@ -109423,25 +107894,6 @@
           9.7,
           10.2
         ]
-      },
-      "outcomes": {
-        "name": "Silkeborg",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          40.6,
-          34.3,
-          32.9
-        ],
-        "education": [
-          3.5,
-          4.2,
-          6.3
-        ]
       }
     },
     "skanderborg": {
@@ -110773,25 +109225,6 @@
           6.6,
           7.1,
           6.6
-        ]
-      },
-      "outcomes": {
-        "name": "Skanderborg",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          43.5,
-          40.6,
-          36.2
-        ],
-        "education": [
-          null,
-          null,
-          null
         ]
       }
     },
@@ -112125,25 +110558,6 @@
           6.2,
           5.2
         ]
-      },
-      "outcomes": {
-        "name": "Skive",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          36,
-          34.7,
-          30.7
-        ],
-        "education": [
-          5.3,
-          6.7,
-          6.7
-        ]
       }
     },
     "struer": {
@@ -113475,25 +111889,6 @@
           7,
           6,
           7.5
-        ]
-      },
-      "outcomes": {
-        "name": "Struer",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          33.3,
-          31.3,
-          20.8
-        ],
-        "education": [
-          null,
-          8.3,
-          8.3
         ]
       }
     },
@@ -114827,25 +113222,6 @@
           8.9,
           8.2
         ]
-      },
-      "outcomes": {
-        "name": "Syddjurs",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          37.5,
-          36.1,
-          31.9
-        ],
-        "education": [
-          5.6,
-          4.2,
-          null
-        ]
       }
     },
     "viborg": {
@@ -116178,25 +114554,6 @@
           7.8,
           7.8
         ]
-      },
-      "outcomes": {
-        "name": "Viborg",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          33.2,
-          28.7,
-          26.5
-        ],
-        "education": [
-          5.8,
-          4.9,
-          4.5
-        ]
       }
     },
     "aarhus": {
@@ -117527,25 +115884,6 @@
           9.6,
           9.7,
           10.4,
-          10.9
-        ]
-      },
-      "outcomes": {
-        "name": "Aarhus",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          37.1,
-          33.3,
-          29
-        ],
-        "education": [
-          4.7,
-          7.7,
           10.9
         ]
       }
@@ -118880,25 +117218,6 @@
           8.4,
           9.2
         ]
-      },
-      "outcomes": {
-        "name": "Brønderslev",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          35.6,
-          26,
-          31.5
-        ],
-        "education": [
-          6.8,
-          8.2,
-          5.5
-        ]
       }
     },
     "frederikshavn": {
@@ -120230,25 +118549,6 @@
           10.4,
           12.1,
           13.2
-        ]
-      },
-      "outcomes": {
-        "name": "Frederikshavn",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          50,
-          49.1,
-          33.6
-        ],
-        "education": [
-          4.3,
-          5.2,
-          4.3
         ]
       }
     },
@@ -121582,25 +119882,6 @@
           9.8,
           9.9
         ]
-      },
-      "outcomes": {
-        "name": "Hjørring",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          33,
-          32.2,
-          30.4
-        ],
-        "education": [
-          2.6,
-          6.1,
-          4.3
-        ]
       }
     },
     "jammerbugt": {
@@ -122933,25 +121214,6 @@
           9.6,
           10
         ]
-      },
-      "outcomes": {
-        "name": "Jammerbugt",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          42.9,
-          39.3,
-          34.5
-        ],
-        "education": [
-          4.8,
-          4.8,
-          6
-        ]
       }
     },
     "laesoe": {
@@ -124147,25 +122409,6 @@
           30,
           14.3,
           14.3
-        ]
-      },
-      "outcomes": {
-        "name": "Læsø",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          null,
-          null,
-          null
-        ],
-        "education": [
-          null,
-          null,
-          null
         ]
       }
     },
@@ -125499,25 +123742,6 @@
           10.2,
           10.3
         ]
-      },
-      "outcomes": {
-        "name": "Mariagerfjord",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          48.1,
-          44.4,
-          32.4
-        ],
-        "education": [
-          5.6,
-          6.5,
-          7.4
-        ]
       }
     },
     "morsoe": {
@@ -126849,25 +125073,6 @@
           14,
           12.4,
           12.2
-        ]
-      },
-      "outcomes": {
-        "name": "Morsø",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          37.2,
-          30.2,
-          23.3
-        ],
-        "education": [
-          7,
-          null,
-          9.3
         ]
       }
     },
@@ -128201,25 +126406,6 @@
           14.3,
           11.7
         ]
-      },
-      "outcomes": {
-        "name": "Rebild",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          38.3,
-          31.9,
-          27.7
-        ],
-        "education": [
-          8.5,
-          6.4,
-          10.6
-        ]
       }
     },
     "thisted": {
@@ -129551,25 +127737,6 @@
           9.7,
           11,
           11.6
-        ]
-      },
-      "outcomes": {
-        "name": "Thisted",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          34.6,
-          34.6,
-          30.9
-        ],
-        "education": [
-          6.2,
-          3.7,
-          3.7
         ]
       }
     },
@@ -130903,25 +129070,6 @@
           8.7,
           9.9
         ]
-      },
-      "outcomes": {
-        "name": "Vesthimmerlands",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          38.5,
-          33,
-          24.2
-        ],
-        "education": [
-          4.4,
-          5.5,
-          5.5
-        ]
       }
     },
     "aalborg": {
@@ -132253,25 +130401,6 @@
           9.4,
           10,
           10.7
-        ]
-      },
-      "outcomes": {
-        "name": "Aalborg",
-        "period": "2025Q01",
-        "horizons": [
-          3,
-          6,
-          12
-        ],
-        "employment": [
-          38.2,
-          36.1,
-          32.3
-        ],
-        "education": [
-          7.6,
-          9.1,
-          11.3
         ]
       }
     }
@@ -133605,25 +131734,6 @@
         9.6,
         10.1,
         10.3
-      ]
-    },
-    "outcomes": {
-      "name": "Hele landet",
-      "period": "2025Q01",
-      "horizons": [
-        3,
-        6,
-        12
-      ],
-      "employment": [
-        39,
-        35.2,
-        31
-      ],
-      "education": [
-        4.9,
-        6.3,
-        7.2
       ]
     }
   }
