@@ -1,5 +1,3 @@
-status: fejl
-tid_utc: 2026-08-19T16:40:10Z
+status: ok
+tid_utc: 2026-08-19T16:49:05Z
 dato_dk: 2026-08-19
-trin: opdatering
-fejl: Opdateret: ok. Kommuner: 98. Nationale sektioner: 2 Traceback (most recent call last): File "/home/runner/work/kommunal-beskaeftigelsesindsats/kommunal-beskaeftigelsesindsats/scripts/validate_dashboard.py", line 8, in <module> assert needle in html, f'Mangler {needle} i index.html' ^^^^^^^^^^^^^^ AssertionError: Mangler compareNational i index.html 
