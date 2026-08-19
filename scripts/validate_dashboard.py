@@ -4,7 +4,7 @@ from pathlib import Path
 BASE=Path(__file__).resolve().parents[1]
 data=json.loads((BASE/'data/dashboard-data.json').read_text(encoding='utf-8'))
 html=(BASE/'index.html').read_text(encoding='utf-8')
-for needle in ['Kommunal beskæftigelsesindsats','municipalitySelect','compareNational','Hele landet','unemploymentChart','compositionChart','longtermChart','unemploymentIndexChart','longtermIndexChart','longtermShareChart','benefitShareChart','indexComparison']:
+for needle in ['Kommunal beskæftigelsesindsats','municipalitySelect','comparisonSelect','Hele landet','unemploymentChart','compositionChart','longtermChart','unemploymentIndexChart','longtermIndexChart','longtermShareChart','benefitShareChart','indexComparison']:
     assert needle in html, f'Mangler {needle} i index.html'
 for forbidden in ['Danmarkskort','rankingList','leaflet','id="map"','newlyChart','durationChart','exitChart','Nytilmeldte ledige','Andel i beskæftigelse efter nyledighed']:
     assert forbidden.lower() not in html.lower(), f'Uønsket kort/rangering findes stadig: {forbidden}'
