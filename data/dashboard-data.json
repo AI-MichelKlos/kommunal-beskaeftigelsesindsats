@@ -2,7 +2,7 @@
   "meta": {
     "title": "Kommunal beskæftigelsesindsats",
     "updated": "19. august 2026",
-    "retrievedAt": "2026-08-19T11:54:27+02:00",
+    "retrievedAt": "2026-08-19T12:50:46+02:00",
     "source": "Jobindsats.dk / STAR",
     "sourceStatus": {
       "unemployment": {
@@ -10,7 +10,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i01",
         "latestPeriod": "2026M07",
-        "checkedAt": "2026-08-19T11:54:27+02:00",
+        "checkedAt": "2026-08-19T12:50:46+02:00",
         "note": "Faktisk registerbaseret ledighed. Ikke sæsonkorrigeret på kommuneniveau."
       },
       "unemploymentNational": {
@@ -18,7 +18,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i01",
         "latestPeriod": "2026M07",
-        "checkedAt": "2026-08-19T11:54:27+02:00",
+        "checkedAt": "2026-08-19T12:50:46+02:00",
         "note": "Officielt landstal fra samme Jobindsats-måling."
       },
       "registered": {
@@ -26,7 +26,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i02",
         "latestPeriod": "2026M07",
-        "checkedAt": "2026-08-19T11:54:27+02:00",
+        "checkedAt": "2026-08-19T12:50:46+02:00",
         "note": "Nytilmeldte ledige på Jobnet."
       },
       "registeredNational": {
@@ -34,7 +34,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i02",
         "latestPeriod": "2026M07",
-        "checkedAt": "2026-08-19T11:54:27+02:00",
+        "checkedAt": "2026-08-19T12:50:46+02:00",
         "note": ""
       },
       "longterm": {
@@ -42,7 +42,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i09",
         "latestPeriod": "2026M06",
-        "checkedAt": "2026-08-19T11:54:27+02:00",
+        "checkedAt": "2026-08-19T12:50:46+02:00",
         "note": ""
       },
       "longtermNational": {
@@ -50,7 +50,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i09",
         "latestPeriod": "2026M06",
-        "checkedAt": "2026-08-19T11:54:27+02:00",
+        "checkedAt": "2026-08-19T12:50:46+02:00",
         "note": ""
       },
       "dagpengeDuration": {
@@ -58,7 +58,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y01a21",
         "latestPeriod": "98",
-        "checkedAt": "2026-08-19T11:54:27+02:00",
+        "checkedAt": "2026-08-19T12:50:46+02:00",
         "note": ""
       },
       "dagpengeDurationNational": {
@@ -66,7 +66,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y01a21",
         "latestPeriod": "11109",
-        "checkedAt": "2026-08-19T11:54:27+02:00",
+        "checkedAt": "2026-08-19T12:50:46+02:00",
         "note": ""
       },
       "kontanthjaelpDuration": {
@@ -74,7 +74,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y60a21",
         "latestPeriod": null,
-        "checkedAt": "2026-08-19T11:54:27+02:00",
+        "checkedAt": "2026-08-19T12:50:46+02:00",
         "note": ""
       },
       "kontanthjaelpDurationNational": {
@@ -87,13 +87,13 @@
         "state": "failed",
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i08",
-        "note": "HTTP 422: {\"code\":422,\"cause\":\"Unknown hierarchies: ['_ygrpi09']\",\"request_id\":\"d0918d4a-7bd3-4f1c-97ae-d3bdec9644a8\"} | HTTP 422: {\"code\":422,\"cause\":\"Unknown hierarchies: ['_ygrpi09']\",\"request_id\":\"3b609390-eb6e-41e0-8be4-2cd15d4f8a57\"} | HTTP 422: {\"code\":422,\"cause\":\"Unknown period type: M\",\"request_id\":\"d4d06af1-d4ba-457a-9a32-4c300f638b46\"}"
+        "note": "HTTP 422: {\"code\":422,\"cause\":\"Unknown hierarchies: ['_ygrpi09']\",\"request_id\":\"5b099285-fcfe-4005-a313-f763ec3dfd8c\"} | HTTP 422: {\"code\":422,\"cause\":\"Unknown hierarchies: ['_ygrpi09']\",\"request_id\":\"bd4cbb57-bbb9-4a1c-a9a9-92496bce4387\"} | HTTP 422: {\"code\":422,\"cause\":\"Unknown period type: M\",\"request_id\":\"1e9eeae9-94a0-4e9f-ac73-d5e71ae8fc86\"}"
       },
       "employmentExitNational": {
         "state": "failed",
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i08",
-        "note": "HTTP 422: {\"code\":422,\"cause\":\"Unknown hierarchies: ['_ygrpi09']\",\"request_id\":\"ac7aefbf-2853-4059-bac1-65cbab55ab27\"} | HTTP 422: {\"code\":422,\"cause\":\"Unknown hierarchies: ['_ygrpi09']\",\"request_id\":\"ee84646d-91a1-4fa3-8a89-bc70d6317ec4\"} | HTTP 422: {\"code\":422,\"cause\":\"Unknown period type: M\",\"request_id\":\"6655d9f7-b811-4942-a8df-a14063c9b371\"}"
+        "note": "HTTP 422: {\"code\":422,\"cause\":\"Unknown hierarchies: ['_ygrpi09']\",\"request_id\":\"c8e29d04-a593-4a27-b00e-af76068ee6ba\"} | HTTP 422: {\"code\":422,\"cause\":\"Unknown hierarchies: ['_ygrpi09']\",\"request_id\":\"2141414d-378c-49b8-81ba-bfe1b91447cc\"} | HTTP 422: {\"code\":422,\"cause\":\"Unknown period type: M\",\"request_id\":\"60d6338b-9963-449d-b343-d172ed5dab5e\"}"
       }
     },
     "updateStatus": {
@@ -114,7 +114,7 @@
         "employmentExit",
         "employmentExitNational"
       ],
-      "checkedAt": "2026-08-19T11:54:27+02:00"
+      "checkedAt": "2026-08-19T12:50:46+02:00"
     }
   },
   "municipalities": {
