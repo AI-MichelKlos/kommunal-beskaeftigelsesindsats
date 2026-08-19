@@ -55,6 +55,10 @@ h2{font-size:1.5rem;margin:40px 0 16px;border-bottom:3px solid var(--green);padd
 <script>
 let DATA=null,selected='__national__',months=36,charts={};
 const COLORS={selected:'#3d6b47',national:'#E07A40',green:'#6B9E78',blue:'#4A90C4',purple:'#9B59B6',grid:'#E8EBE8',ink:'#0F2B36',muted:'#68777d'};
+const LEGEND_LABELS={usePointStyle:true,pointStyle:'circle',pointStyleWidth:10,boxWidth:10,boxHeight:10,padding:22,color:COLORS.muted,font:{size:13}};
+const legendGap={id:'legendGap',beforeInit(chart){const legend=chart.legend;if(!legend)return;const fit=legend.fit;legend.fit=function(){fit.call(this);if(this.options.display)this.height+=14}}};
+Chart.register(legendGap);
+function legendOptions(display=true){return{display,position:'top',align:'start',labels:LEGEND_LABELS}}
 const nf0=new Intl.NumberFormat('da-DK',{maximumFractionDigits:0}),nf1=new Intl.NumberFormat('da-DK',{minimumFractionDigits:1,maximumFractionDigits:1});
 const fmtNumber=v=>v==null?'Ikke tilgængelig':nf0.format(v);
 const fmtPct=v=>v==null?'Ikke tilgængelig':nf1.format(v)+' %';
@@ -77,13 +81,13 @@ function line(id,labels,datasets,kind='number',beginZero=false){
   if(!labels?.length||!datasets.some(d=>d.data?.some(v=>v!=null))){showEmpty(c,true);return}
   showEmpty(c,false);
   const styled=datasets.map((d,i)=>({...d,borderColor:d.borderColor||(i?COLORS.national:COLORS.selected),backgroundColor:d.backgroundColor||(i?COLORS.national:COLORS.selected),pointRadius:0,pointHoverRadius:4,borderWidth:d.borderWidth||2.3,tension:.18,fill:false,spanGaps:false}));
-  charts[id]=new Chart(c,{type:'line',data:{labels,datasets:styled},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},layout:{padding:{top:10,right:8,bottom:4,left:4}},scales:{x:xAxis(),y:{beginAtZero:beginZero,grid:{color:COLORS.grid},ticks:{color:COLORS.muted,padding:8,callback:v=>yFormat(kind,v)}}},plugins:{legend:{display:styled.length>1,position:'top',align:'start',labels:{usePointStyle:true,boxWidth:12,boxHeight:12,padding:18}},tooltip:{callbacks:{title:items=>periodLabel(items[0]?.label),label:ctx=>ctx.dataset.label+': '+yFormat(kind,ctx.parsed.y)}}}}})
+  charts[id]=new Chart(c,{type:'line',data:{labels,datasets:styled},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},layout:{padding:{top:10,right:8,bottom:4,left:4}},scales:{x:xAxis(),y:{beginAtZero:beginZero,grid:{color:COLORS.grid},ticks:{color:COLORS.muted,padding:8,callback:v=>yFormat(kind,v)}}},plugins:{legend:legendOptions(styled.length>1),tooltip:{callbacks:{title:items=>periodLabel(items[0]?.label),label:ctx=>ctx.dataset.label+': '+yFormat(kind,ctx.parsed.y)}}}}})
 }
 function stackedBars(id,labels,datasets){
   const c=document.getElementById(id);destroy(id);
   if(!labels?.length||!datasets.some(d=>d.data?.some(v=>v!=null))){showEmpty(c,true);return}
   showEmpty(c,false);
-  charts[id]=new Chart(c,{type:'bar',data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:10,right:8,bottom:4,left:4}},scales:{x:{...xAxis(),stacked:true},y:{stacked:true,beginAtZero:true,grid:{color:COLORS.grid},ticks:{color:COLORS.muted,padding:8,callback:v=>nf0.format(v)}}},plugins:{legend:{position:'top',align:'start',labels:{usePointStyle:true,boxWidth:12,boxHeight:12,padding:18}},tooltip:{callbacks:{title:items=>periodLabel(items[0]?.label),label:ctx=>ctx.dataset.label+': '+nf0.format(ctx.parsed.y)}}}}})
+  charts[id]=new Chart(c,{type:'bar',data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:10,right:8,bottom:4,left:4}},scales:{x:{...xAxis(),stacked:true},y:{stacked:true,beginAtZero:true,grid:{color:COLORS.grid},ticks:{color:COLORS.muted,padding:8,callback:v=>nf0.format(v)}}},plugins:{legend:legendOptions(),tooltip:{callbacks:{title:items=>periodLabel(items[0]?.label),label:ctx=>ctx.dataset.label+': '+nf0.format(ctx.parsed.y)}}}}})
 }
 function indexComparison(own,nat,key,label){
   let labels=windowLabels(own),ownValues=align(own,key,labels),natValues=compareEnabled()?align(nat,key,labels):null;
