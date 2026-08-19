@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Sammenlign kommunal ledighed, kontanthjælp, aktivering og beskæftigelsesresultater.">
+<meta name="description" content="Sammenlign kommunal ledighed, kontanthjælp og aktivering.">
 <title>Kommunal beskæftigelsesindsats</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
@@ -19,7 +19,7 @@ h2{font-size:1.5rem;margin:40px 0 16px;border-bottom:3px solid var(--green);padd
 </style>
 </head>
 <body>
-<header class="hero"><div><h1>Kommunal beskæftigelsesindsats</h1><div class="byline">Udarbejdet af Michel Klos</div><p>Ledighed, kontanthjælp, aktivering og resultater i den valgte kommune med direkte sammenligning med hele landet eller en anden kommune.</p></div></header>
+<header class="hero"><div><h1>Kommunal beskæftigelsesindsats</h1><div class="byline">Udarbejdet af Michel Klos</div><p>Ledighed, kontanthjælp og aktivering i den valgte kommune med direkte sammenligning med hele landet eller en anden kommune.</p></div></header>
 <main>
 <div class="toolbar">
   <label class="control">Vælg kommune<select id="municipalitySelect"></select></label>
@@ -50,22 +50,21 @@ h2{font-size:1.5rem;margin:40px 0 16px;border-bottom:3px solid var(--green);padd
 </div>
 
 <h2>Kontanthjælp</h2>
-<p class="section-intro">Et særskilt overblik over personer på kontanthjælp, deres visitationskategori, ordinære løntimer og status efter afsluttet forløb.</p>
+<p class="section-intro">Et særskilt overblik over personer på kontanthjælp, deres visitationskategori og ordinære løntimer.</p>
 <div class="kpis" id="cashKpis"></div>
 <div class="grid2" style="margin-top:18px">
   <article class="card wide"><h3>Kontanthjælp over tid</h3><p class="small">Omfatter både jobparate og ikke-jobparate kontanthjælpsmodtagere. Grafen viser fuldtidspersoner i pct. af befolkningen 16-66 år og kan sammenlignes direkte mellem områder.</p><div class="chart"><canvas id="cashAssistanceChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60a02.</p></article>
   <article class="card"><h3>Visitationskategorier</h3><p class="small">Fordeling af fuldtidspersoner i <span id="visitationPeriod">seneste måned</span>. Vises som andele, så områder af forskellig størrelse kan sammenlignes.</p><div class="chart tall"><canvas id="cashVisitationChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60a02. Egne andelsberegninger.</p></article>
   <article class="card"><h3>Ordinære løntimer</h3><p class="small">Andel af alle kontanthjælpsmodtagere, både jobparate og ikke-jobparate, med ordinære løntimer i <span id="ordinaryHoursPeriod">seneste måned</span>.</p><div class="chart tall"><canvas id="ordinaryHoursChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60j01.</p></article>
-  <article class="card wide"><h3>Job og uddannelse efter afsluttet forløb</h3><p class="small">Andel i lønmodtagerbeskæftigelse eller uddannelse 3, 6 og 12 måneder efter afsluttet kontanthjælpsforløb. Afgangskvartal: <span id="outcomePeriod">ikke tilgængeligt</span>.</p><div class="chart"><canvas id="outcomeChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60b15. Samme fuldt modnede afgangskvartal anvendes for begge områder.</p></article>
 </div>
 
 <h2>Aktivering og tilbud</h2>
-<p class="section-intro">Aktiveringsgraden viser, hvor stor en del af tiden modtagerne deltager i tilbud. Andelen aktiveringsberørte viser, hvor mange der har deltaget mindst én dag i perioden.</p>
+<p class="section-intro">Opgørelsen er for visitationskategori i alt og omfatter derfor både jobparate og ikke-jobparate kontanthjælpsmodtagere. Aktiveringsgraden viser, hvor stor en del af tiden modtagerne deltager i tilbud. Andelen aktiveringsberørte viser, hvor mange der har deltaget mindst én dag i perioden.</p>
 <div class="kpis" id="activationKpis"></div>
 <div class="grid2" style="margin-top:18px">
-  <article class="card"><h3>Aktiveringsgrad</h3><p class="small">Aktiveringstimer som andel af det mulige antal timer på kontanthjælp.</p><div class="chart"><canvas id="activationDegreeChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60c07.</p></article>
-  <article class="card"><h3>Aktiveringsberørte</h3><p class="small">Andel modtagere, der har været i aktivering mindst én dag i måneden.</p><div class="chart"><canvas id="activationAffectedChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60c07.</p></article>
-  <article class="card wide"><h3>Aktiveringstilbud</h3><p class="small">Fordeling af aktiveringsforløb på fem hovedtyper i <span id="offerPeriod">seneste måned</span>. Andele bruges til områdesammenligning.</p><div class="chart tall"><canvas id="offerMixChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60c02. Et forløb tæller med, hvis det har været i gang mindst én dag i perioden.</p></article>
+  <article class="card"><h3>Aktiveringsgrad</h3><p class="small">Opgjort for både jobparate og ikke-jobparate. Aktiveringstimer som andel af det mulige antal timer på kontanthjælp.</p><div class="chart"><canvas id="activationDegreeChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60c07.</p></article>
+  <article class="card"><h3>Aktiveringsberørte</h3><p class="small">Opgjort for både jobparate og ikke-jobparate. Andel modtagere, der har været i aktivering mindst én dag i måneden.</p><div class="chart"><canvas id="activationAffectedChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60c07.</p></article>
+  <article class="card wide"><h3>Aktiveringstilbud</h3><p class="small">Registrerede aktiveringsforløb for både jobparate og ikke-jobparate, fordelt på fem hovedtyper i <span id="offerPeriod">seneste måned</span>. Andele bruges til områdesammenligning.</p><div class="chart tall"><canvas id="offerMixChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60c02. Et forløb tæller med, hvis det har været i gang mindst én dag i perioden.</p></article>
 </div>
 
 <div class="data-note"><strong>Databrud:</strong> Kontanthjælpssystemet blev ændret 1. juli 2025. Jobindsats har koblet gamle og nye kategorier, men udviklingen omkring reformtidspunktet bør fortolkes med forsigtighed. Diskretionerede små tal vises som manglende og indgår ikke i beregnede fordelinger.</div>
@@ -195,19 +194,6 @@ function renderPolicyCharts(own,other){
   if(compareEnabled()&&otherHours)hourSets.push({label:other.name||'Sammenligningsområde',data:align(otherHours,'share',hourLabels)});
   line('ordinaryHoursChart',hourLabels,hourSets,'percent',true);
 
-  const outcome=own?.outcomes,otherOutcome=other?.outcomes;
-  document.getElementById('outcomePeriod').textContent=outcome?.period?periodLabel(outcome.period):'ikke tilgængeligt';
-  const outcomeLabels=(outcome?.horizons||[]).map(value=>`${value} måneder`),outcomeSets=[];
-  if(outcome){
-    outcomeSets.push({label:`${own.name} | job`,data:outcome.employment,borderColor:COLORS.selected});
-    outcomeSets.push({label:`${own.name} | uddannelse`,data:outcome.education,borderColor:COLORS.blue,borderDash:[6,4]});
-  }
-  if(compareEnabled()&&otherOutcome){
-    outcomeSets.push({label:`${other.name} | job`,data:otherOutcome.employment,borderColor:COLORS.orange});
-    outcomeSets.push({label:`${other.name} | uddannelse`,data:otherOutcome.education,borderColor:COLORS.purple,borderDash:[6,4]});
-  }
-  line('outcomeChart',outcomeLabels,outcomeSets,'percent',true);
-
   const activation=own?.activation,otherActivation=other?.activation,activationLabels=windowLabels(activation);
   const degreeSets=[{label:own?.name||'Valgt område',data:align(activation,'degree',activationLabels)}];
   const affectedSets=[{label:own?.name||'Valgt område',data:align(activation,'affectedShare',activationLabels)}];
@@ -226,7 +212,7 @@ function renderPolicyCharts(own,other){
 }
 function renderCharts(){
   const m=entity(),other=comparisonEntity(),u=m?.unemployment,otherUnemployment=other?.unemployment;
-  if(!u){['unemploymentChart','compositionChart','longtermChart','unemploymentIndexChart','longtermIndexChart','longtermShareChart','benefitShareChart','cashAssistanceChart','cashVisitationChart','ordinaryHoursChart','outcomeChart','activationDegreeChart','activationAffectedChart','offerMixChart'].forEach(id=>showEmpty(document.getElementById(id),true));return}
+  if(!u){['unemploymentChart','compositionChart','longtermChart','unemploymentIndexChart','longtermIndexChart','longtermShareChart','benefitShareChart','cashAssistanceChart','cashVisitationChart','ordinaryHoursChart','activationDegreeChart','activationAffectedChart','offerMixChart'].forEach(id=>showEmpty(document.getElementById(id),true));return}
   const ownLabels=windowLabels(u),rateSets=[{label:m.name||'Valgt område',data:align(u,'totalRate',ownLabels)}];
   if(compareEnabled()&&otherUnemployment)rateSets.push({label:other.name||'Sammenligningsområde',data:align(otherUnemployment,'totalRate',ownLabels)});
   line('unemploymentChart',ownLabels,rateSets,'percent',true);

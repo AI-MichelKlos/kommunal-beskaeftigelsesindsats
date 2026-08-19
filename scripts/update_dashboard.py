@@ -24,7 +24,6 @@ KNOWN = {
     'activation': 'y60c07',
     'offers': 'y60c02',
     'ordinaryHours': 'y60j01',
-    'outcomes': 'y60b15',
 }
 
 
@@ -345,53 +344,6 @@ def build_offers(rows, period):
     return series
 
 
-def build_outcomes(rows, periods):
-    if not rows:
-        return {}
-    ak, pk = area_key(rows[0]), period_key(rows[0])
-    sk = find_col(rows[0], [['arbejdsmarkedsstatus']])
-    columns = {
-        3: find_col(rows[0], [['status', '3', 'pct']]),
-        6: find_col(rows[0], [['status', '6', 'pct']]),
-        12: find_col(rows[0], [['status', '12', 'pct']]),
-    }
-    if not ak or not pk or not sk or any(column is None for column in columns.values()):
-        raise RuntimeError(f'Mangler resultatkolonner. Fundet: {list(rows[0])}')
-    grouped, names = defaultdict(lambda: defaultdict(lambda: defaultdict(dict))), {}
-    status_map = {norm('Lønmodtagerbeskæftigelse'): 'employment', norm('Uddannelse'): 'education'}
-    for row in rows:
-        area, period = str(row.get(ak, '')).strip(), str(row.get(pk, '')).strip()
-        status = status_map.get(norm(row.get(sk)))
-        if not area or not period or not status:
-            continue
-        aid = norm(area)
-        names[aid] = area
-        for horizon, column in columns.items():
-            grouped[aid][period][status][horizon] = num(row.get(column))
-    national = grouped.get(norm('Hele landet'), {})
-    common_period = next(
-        (
-            period for period in reversed(periods)
-            if national.get(period, {}).get('employment', {}).get(12) is not None
-            and national.get(period, {}).get('education', {}).get(12) is not None
-        ),
-        None,
-    )
-    if not common_period:
-        raise RuntimeError('Intet fuldt modnet resultatkvartal med 12-månedersstatus')
-    output = {}
-    for aid, area_periods in grouped.items():
-        values = area_periods.get(common_period, {})
-        output[aid] = {
-            'name': names[aid],
-            'period': common_period,
-            'horizons': [3, 6, 12],
-            'employment': [values.get('employment', {}).get(horizon) for horizon in [3, 6, 12]],
-            'education': [values.get('education', {}).get(horizon) for horizon in [3, 6, 12]],
-        }
-    return output
-
-
 def first_series(series):
     if not series:
         raise RuntimeError('Ingen data i national serie')
@@ -525,7 +477,7 @@ def main():
         rows = frontend_records(table, periods, areas, ['mgrpc07_1', 'mgrpc07_2'])
         series = build_measure_series(rows, {'degree': [['aktiveringsgrad']], 'affectedShare': [['andel', 'aktiveringsberørte']]})
         attach('activation', series)
-        add_source('activation', table, series, 'Aktiveringsgrad og andel aktiveringsberørte.')
+        add_source('activation', table, series, 'Aktiveringsgrad og andel aktiveringsberørte for visitationskategori i alt, både jobparate og ikke-jobparate.')
     except Exception as error:
         fail('activation', table, error)
 
@@ -550,7 +502,7 @@ def main():
         )
         series = build_offers(rows, period)
         attach('offers', series)
-        add_source('offers', table, series, 'Aktiveringsforløb fordelt på overordnede tilbudstyper.', latest=period)
+        add_source('offers', table, series, 'Aktiveringsforløb for visitationskategori i alt, både jobparate og ikke-jobparate, fordelt på overordnede tilbudstyper.', latest=period)
     except Exception as error:
         fail('offers', table, error)
 
@@ -570,26 +522,6 @@ def main():
         add_source('ordinaryHours', table, series, 'Kontanthjælpsmodtagere med ordinære løntimer i måneden.')
     except Exception as error:
         fail('ordinaryHours', table, error)
-
-    table = KNOWN['outcomes']
-    try:
-        meta = metadata(table)
-        areas, periods = metadata_areas(meta), metadata_periods(meta, 'Q', 10)
-        rows = []
-        for start in range(0, len(areas), 30):
-            rows.extend(frontend_records(
-                table,
-                periods,
-                areas[start:start + 30],
-                ['mgrpb15_6', 'mgrpb15_7', 'mgrpb15_8'],
-                {'_amstatusb15': ['Lønmodtagerbeskæftigelse', 'Uddannelse']},
-            ))
-        series = build_outcomes(rows, periods)
-        attach('outcomes', series)
-        latest = next(iter(series.values())).get('period') if series else None
-        add_source('outcomes', table, series, 'Status efter afsluttet kontanthjælpsforløb. Samme fuldt modnede kvartal anvendes for alle områder.', latest=latest)
-    except Exception as error:
-        fail('outcomes', table, error)
 
     municipalities.pop(norm('Hele landet'), None)
     municipalities.pop(norm('Uoplyst område'), None)

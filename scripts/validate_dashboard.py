@@ -4,15 +4,15 @@ from pathlib import Path
 BASE=Path(__file__).resolve().parents[1]
 data=json.loads((BASE/'data/dashboard-data.json').read_text(encoding='utf-8'))
 html=(BASE/'index.html').read_text(encoding='utf-8')
-for needle in ['Kommunal beskæftigelsesindsats','municipalitySelect','comparisonSelect','Hele landet','unemploymentChart','compositionChart','longtermChart','unemploymentIndexChart','longtermIndexChart','longtermShareChart','benefitShareChart','cashKpis','cashAssistanceChart','cashVisitationChart','ordinaryHoursChart','outcomeChart','activationKpis','activationDegreeChart','activationAffectedChart','offerMixChart','indexComparison']:
+for needle in ['Kommunal beskæftigelsesindsats','municipalitySelect','comparisonSelect','Hele landet','unemploymentChart','compositionChart','longtermChart','unemploymentIndexChart','longtermIndexChart','longtermShareChart','benefitShareChart','cashKpis','cashAssistanceChart','cashVisitationChart','ordinaryHoursChart','activationKpis','activationDegreeChart','activationAffectedChart','offerMixChart','indexComparison']:
     assert needle in html, f'Mangler {needle} i index.html'
-for forbidden in ['Danmarkskort','rankingList','leaflet','id="map"','newlyChart','durationChart','exitChart','Nytilmeldte ledige','Andel i beskæftigelse efter nyledighed']:
+for forbidden in ['Danmarkskort','rankingList','leaflet','id="map"','newlyChart','durationChart','exitChart','outcomeChart','Nytilmeldte ledige','Andel i beskæftigelse efter nyledighed','Job og uddannelse efter afsluttet forløb']:
     assert forbidden.lower() not in html.lower(), f'Uønsket kort/rangering findes stadig: {forbidden}'
 state=data.get('meta',{}).get('updateStatus',{}).get('state')
 assert state=='ok', f'Aktive kilder er ikke fuldt opdateret: {state}'
 assert not data.get('meta',{}).get('updateStatus',{}).get('failed',[]), 'Fejllisten skal være tom ved ok-status'
 sources=data.get('meta',{}).get('sourceStatus',{})
-required={'unemployment','unemploymentNational','longterm','longtermNational','cashAssistance','cashVisitation','activation','offers','ordinaryHours','outcomes'}
+required={'unemployment','unemploymentNational','longterm','longtermNational','cashAssistance','cashVisitation','activation','offers','ordinaryHours'}
 assert set(sources)==required, f'Kilderegisteret skal indeholde alle aktive kilder: {set(sources)}'
 for key in required:
     assert sources[key].get('state')=='ok', f'Kilden {key} er ikke ok'
@@ -40,7 +40,6 @@ policy_modules={
     'activation':('labels','degree'),
     'offers':('labels','courses'),
     'ordinaryHours':('labels','share'),
-    'outcomes':('horizons','employment'),
 }
 for module,(labels_key,value_key) in policy_modules.items():
     valid=[v for v in data.get('municipalities',{}).values() if v.get(module,{}).get(labels_key)]
@@ -54,12 +53,9 @@ assert activation.get('labels',[])[-1]==sources['activation']['latestPeriod']
 offers=data.get('national',{}).get('offers',{})
 assert offers.get('period')==sources['offers']['latestPeriod']
 assert len(offers.get('labels',[]))==5, 'Der skal være fem hovedtyper af aktiveringstilbud'
-outcomes=data.get('national',{}).get('outcomes',{})
-assert outcomes.get('period')==sources['outcomes']['latestPeriod']
-assert outcomes.get('horizons')==[3,6,12], 'Resultater skal vises efter 3, 6 og 12 måneder'
 for area in data.get('municipalities',{}).values():
-    for retired in ('newlyRegistered','duration','employmentExit'):
+    for retired in ('newlyRegistered','duration','employmentExit','outcomes'):
         assert retired not in area, f'Udgået modul ligger stadig i kommunedata: {retired}'
-for retired in ('newlyRegistered','duration','employmentExit'):
+for retired in ('newlyRegistered','duration','employmentExit','outcomes'):
     assert retired not in data.get('national',{}), f'Udgået modul ligger stadig i landstal: {retired}'
 print('Dashboard-validering ok')
