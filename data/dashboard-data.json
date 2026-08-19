@@ -2,7 +2,7 @@
   "meta": {
     "title": "Kommunal beskæftigelsesindsats",
     "updated": "19. august 2026",
-    "retrievedAt": "2026-08-19T18:27:00+02:00",
+    "retrievedAt": "2026-08-19T18:40:11+02:00",
     "source": "Jobindsats.dk / STAR",
     "sourceStatus": {
       "unemployment": {
@@ -10,7 +10,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i01",
         "latestPeriod": "2026M07",
-        "checkedAt": "2026-08-19T18:27:00+02:00",
+        "checkedAt": "2026-08-19T18:40:11+02:00",
         "note": "Faktisk registerbaseret ledighed. Ikke sæsonkorrigeret på kommuneniveau."
       },
       "unemploymentNational": {
@@ -18,7 +18,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i01",
         "latestPeriod": "2026M07",
-        "checkedAt": "2026-08-19T18:27:00+02:00",
+        "checkedAt": "2026-08-19T18:40:11+02:00",
         "note": "Officielt landstal fra samme Jobindsats-måling."
       },
       "longterm": {
@@ -26,7 +26,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i09",
         "latestPeriod": "2026M06",
-        "checkedAt": "2026-08-19T18:27:00+02:00",
+        "checkedAt": "2026-08-19T18:40:11+02:00",
         "note": ""
       },
       "longtermNational": {
@@ -34,7 +34,7 @@
         "source": "Jobindsats.dk / STAR",
         "dataset": "y25i09",
         "latestPeriod": "2026M06",
-        "checkedAt": "2026-08-19T18:27:00+02:00",
+        "checkedAt": "2026-08-19T18:40:11+02:00",
         "note": ""
       }
     },
@@ -47,7 +47,7 @@
         "longtermNational"
       ],
       "failed": [],
-      "checkedAt": "2026-08-19T18:27:00+02:00"
+      "checkedAt": "2026-08-19T18:40:11+02:00"
     }
   },
   "municipalities": {
