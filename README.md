@@ -1,6 +1,6 @@
 # Kommunal beskæftigelsesindsats
 
-Interaktivt dashboard om kommunal ledighed og langtidsledighed med fokus på sammenlignelige mål.
+Interaktivt dashboard om kommunal ledighed, kontanthjælp, aktivering og beskæftigelsesresultater med fokus på sammenlignelige mål.
 
 Dashboardet åbner som standard på **Hele landet**. Øverst kan man vælge et område og sammenligne med hele landet eller en af de øvrige kommuner.
 
@@ -11,10 +11,18 @@ Dashboardet indeholder:
 3. Langtidsledighed.
 4. Indeks 100 for ledighed og langtidsledighed i den valgte kommune og hele landet.
 5. Dagpengeandel blandt alle ledige og blandt langtidsledige.
+6. Kontanthjælpsmodtagere som personer, fuldtidspersoner og andel af befolkningen.
+7. Fordeling efter visitationskategori.
+8. Andel med ordinære løntimer.
+9. Job og uddannelse 3, 6 og 12 måneder efter afsluttet kontanthjælpsforløb.
+10. Aktiveringsgrad og andel aktiveringsberørte.
+11. Aktiverede personer, antal forløb og fordeling på fem hovedtyper af aktiveringstilbud.
 
 Nytilmeldte ledige, forløbsvarighed og beskæftigelse efter nyledighed er taget ud, fordi de tidligere API-udtræk enten var tomme, fejlfortolkede eller ikke kunne hentes stabilt. De nye sammenligninger beregnes alene fra de to Jobindsats-tabeller, der leverer komplette kommune- og landstal.
 
-Data hentes fra Jobindsats.dk / STAR, tabel `y25i01` for ledighed og tabel `y25i09` for langtidsledighed.
+Data hentes fra Jobindsats.dk / STAR. Ledighed og langtidsledighed kommer fra `y25i01` og `y25i09`. Kontanthjælp og visitationskategori kommer fra `y60a02`, aktivering fra `y60c07`, tilbud fra `y60c02`, ordinære løntimer fra `y60j01` og status efter afsluttet forløb fra `y60b15`.
+
+Kontanthjælpsreformen fra 1. juli 2025 giver et databrud, som fremgår direkte i dashboardet. Små tal kan være diskretioneret og vises derfor som manglende.
 
 ## Automatisk drift
 

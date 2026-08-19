@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Sammenlign kommunal ledighed og langtidsledighed med hele landet.">
+<meta name="description" content="Sammenlign kommunal ledighed, kontanthjælp, aktivering og beskæftigelsesresultater.">
 <title>Kommunal beskæftigelsesindsats</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
@@ -13,13 +13,13 @@
 main{max-width:1280px;margin:auto;padding:28px 20px 55px}.toolbar,.card,.kpi{background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
 .toolbar{padding:16px;display:flex;gap:14px;align-items:end;flex-wrap:wrap}.control{display:grid;gap:5px;font-size:.78rem;font-weight:700;color:var(--muted)}.control select{min-width:190px}select,button{font:inherit;border:1px solid #d6dfd9;border-radius:8px;background:white;padding:9px 11px;color:var(--ink)}button{cursor:pointer}.range{display:flex;gap:7px;flex-wrap:wrap}.range button.active{background:var(--green2);color:white;border-color:var(--green2)}.compare-toggle{display:flex;align-items:center;gap:8px;min-height:39px;padding:8px 11px;border:1px solid #d6dfd9;border-radius:8px;background:#fff;color:var(--ink);font-size:.84rem;font-weight:700}.compare-toggle input{accent-color:var(--green2)}.compare-toggle:has(input:disabled){opacity:.55}.updated{margin-left:auto;font-size:.8rem;color:var(--muted);padding-bottom:9px}
 h2{font-size:1.5rem;margin:40px 0 16px;border-bottom:3px solid var(--green);padding-bottom:8px}.section-intro{margin:-7px 0 18px;color:var(--muted);line-height:1.5;max-width:900px}.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.kpi{padding:16px;border-top:4px solid var(--green)}.kpi .label{font-weight:750}.kpi .value{font-size:2rem;font-weight:800;margin:7px 0 3px}.small{font-size:.78rem;color:var(--muted);line-height:1.45}.delta{margin-top:8px;border-top:1px solid var(--line);padding-top:8px;font-size:.8rem}.benchmark{margin-top:7px;padding-top:7px;border-top:1px dashed var(--line);font-size:.78rem;color:var(--green2);font-weight:700}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{padding:20px}.card h3{margin:0 0 5px}.chart{height:390px;position:relative}.wide{grid-column:1/-1}.status{padding:11px 13px;border-radius:8px;background:#fff4e8;color:#7f4b13;margin-top:12px;display:none}.source{font-size:.75rem;color:var(--muted);margin:12px 0 0;padding-top:10px;border-top:1px solid var(--line);line-height:1.4}.empty{display:none;align-items:center;justify-content:center;height:100%;text-align:center;color:var(--muted);padding:20px;background:#fafbfa;border-radius:8px}.method{margin-top:30px;padding:16px 18px;background:#eef3f0;border-left:4px solid var(--green);border-radius:8px;color:var(--muted);font-size:.84rem;line-height:1.55}.method strong{color:var(--ink)}footer{padding:0 20px 38px;color:var(--muted);font-size:.78rem;text-align:center}footer a{color:var(--green2)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{padding:20px}.card h3{margin:0 0 5px}.chart{height:390px;position:relative}.chart.tall{height:430px}.wide{grid-column:1/-1}.status{padding:11px 13px;border-radius:8px;background:#fff4e8;color:#7f4b13;margin-top:12px;display:none}.source{font-size:.75rem;color:var(--muted);margin:12px 0 0;padding-top:10px;border-top:1px solid var(--line);line-height:1.4}.empty{display:none;align-items:center;justify-content:center;height:100%;text-align:center;color:var(--muted);padding:20px;background:#fafbfa;border-radius:8px}.method{margin-top:30px;padding:16px 18px;background:#eef3f0;border-left:4px solid var(--green);border-radius:8px;color:var(--muted);font-size:.84rem;line-height:1.55}.method strong{color:var(--ink)}.data-note{margin:18px 0 0;padding:12px 14px;background:#fff7ef;border-left:4px solid var(--orange);border-radius:7px;color:#755135;font-size:.8rem;line-height:1.5}footer{padding:0 20px 38px;color:var(--muted);font-size:.78rem;text-align:center}footer a{color:var(--green2)}
 @media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.wide{grid-column:auto}.updated{width:100%;margin-left:0;padding-bottom:0}}
 @media(max-width:560px){main{padding:14px}.toolbar{padding:14px}.control,.control select{width:100%;min-width:0}.kpis{grid-template-columns:1fr}.chart{height:340px}.card{padding:16px}.compare-toggle{width:100%}}
 </style>
 </head>
 <body>
-<header class="hero"><div><h1>Kommunal beskæftigelsesindsats</h1><div class="byline">Udarbejdet af Michel Klos</div><p>Ledighed og langtidsledighed i den valgte kommune med mulighed for at sammenligne udviklingen med hele landet.</p></div></header>
+<header class="hero"><div><h1>Kommunal beskæftigelsesindsats</h1><div class="byline">Udarbejdet af Michel Klos</div><p>Ledighed, kontanthjælp, aktivering og resultater i den valgte kommune med direkte sammenligning med hele landet eller en anden kommune.</p></div></header>
 <main>
 <div class="toolbar">
   <label class="control">Vælg kommune<select id="municipalitySelect"></select></label>
@@ -49,7 +49,28 @@ h2{font-size:1.5rem;margin:40px 0 16px;border-bottom:3px solid var(--green);padd
   <article class="card"><h3>Dagpengeandel af ledigheden</h3><p class="small">Dagpengemodtagere som andel af alle ledige fuldtidspersoner.</p><div class="chart"><canvas id="benefitShareChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y25i01. Egne beregninger.</p></article>
 </div>
 
-<div class="method"><strong>Metode:</strong> Kommunetal er faktiske, ikke sæsonkorrigerede tal. Indeks 100 bruger den første måned i den viste periode, hvor de viste områder har en gyldig observation. Sammenligning af rå antal mellem områder er fravalgt, fordi forskelle i størrelse kan gøre den misvisende. De afledte andele beregnes inden for samme Jobindsats-måling og enhed. Små tal kan være diskretioneret, så enkelte serier kan mangle for små kommuner.</div>
+<h2>Kontanthjælp</h2>
+<p class="section-intro">Et særskilt overblik over personer på kontanthjælp, deres visitationskategori, ordinære løntimer og status efter afsluttet forløb.</p>
+<div class="kpis" id="cashKpis"></div>
+<div class="grid2" style="margin-top:18px">
+  <article class="card wide"><h3>Kontanthjælp over tid</h3><p class="small">Fuldtidspersoner i pct. af befolkningen 16-66 år. Kan sammenlignes direkte mellem områder.</p><div class="chart"><canvas id="cashAssistanceChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60a02.</p></article>
+  <article class="card"><h3>Visitationskategorier</h3><p class="small">Fordeling af fuldtidspersoner i seneste måned. Vises som andele, så områder af forskellig størrelse kan sammenlignes.</p><div class="chart tall"><canvas id="cashVisitationChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60a02. Egne andelsberegninger.</p></article>
+  <article class="card"><h3>Ordinære løntimer</h3><p class="small">Andel kontanthjælpsmodtagere med ordinære løntimer i måneden.</p><div class="chart tall"><canvas id="ordinaryHoursChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60j01.</p></article>
+  <article class="card wide"><h3>Job og uddannelse efter afsluttet forløb</h3><p class="small">Andel i lønmodtagerbeskæftigelse eller uddannelse 3, 6 og 12 måneder efter afsluttet kontanthjælpsforløb. Afgangskvartal: <span id="outcomePeriod">ikke tilgængeligt</span>.</p><div class="chart"><canvas id="outcomeChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60b15. Samme fuldt modnede afgangskvartal anvendes for begge områder.</p></article>
+</div>
+
+<h2>Aktivering og tilbud</h2>
+<p class="section-intro">Aktiveringsgraden viser, hvor stor en del af tiden modtagerne deltager i tilbud. Andelen aktiveringsberørte viser, hvor mange der har deltaget mindst én dag i perioden.</p>
+<div class="kpis" id="activationKpis"></div>
+<div class="grid2" style="margin-top:18px">
+  <article class="card"><h3>Aktiveringsgrad</h3><p class="small">Aktiveringstimer som andel af det mulige antal timer på kontanthjælp.</p><div class="chart"><canvas id="activationDegreeChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60c07.</p></article>
+  <article class="card"><h3>Aktiveringsberørte</h3><p class="small">Andel modtagere, der har været i aktivering mindst én dag i måneden.</p><div class="chart"><canvas id="activationAffectedChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60c07.</p></article>
+  <article class="card wide"><h3>Aktiveringstilbud</h3><p class="small">Fordeling af aktiveringsforløb på fem hovedtyper i <span id="offerPeriod">seneste måned</span>. Andele bruges til områdesammenligning.</p><div class="chart tall"><canvas id="offerMixChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60c02. Et forløb tæller med, hvis det har været i gang mindst én dag i perioden.</p></article>
+</div>
+
+<div class="data-note"><strong>Databrud:</strong> Kontanthjælpssystemet blev ændret 1. juli 2025. Jobindsats har koblet gamle og nye kategorier, men udviklingen omkring reformtidspunktet bør fortolkes med forsigtighed. Diskretionerede små tal vises som manglende og indgår ikke i beregnede fordelinger.</div>
+
+<div class="method"><strong>Metode:</strong> Kommunetal er faktiske, ikke sæsonkorrigerede tal. Indeks 100 bruger den første måned i den viste periode, hvor de viste områder har en gyldig observation. Rå antal vises kun for det valgte område. Sammenligninger mellem områder bruger procenter, indeks eller fordelinger, så forskelle i befolkningsstørrelse ikke dominerer. Små tal kan være diskretioneret, så enkelte observationer kan mangle.</div>
 </main>
 <footer>Grafik og databehandling: Michel Klos. Kontakt: <a href="mailto:mk@danskeakasser.dk">mk@danskeakasser.dk</a></footer>
 <script>
@@ -64,7 +85,7 @@ const fmtNumber=v=>v==null?'Ikke tilgængelig':nf0.format(v);
 const fmtPct=v=>v==null?'Ikke tilgængelig':nf1.format(v)+' %';
 const latest=(s,k)=>{if(!s||!s.labels?.length)return null;const a=s[k]||[];for(let i=s.labels.length-1;i>=0;i--)if(a[i]!=null)return{p:s.labels[i],v:a[i],i};return null};
 const yearAgo=(s,k,i)=>{if(!s||i==null)return null;const p=s.labels[i],m=String(p).match(/^(\d{4})(M\d{2}|Q\d{2})$/);if(!m)return null;const target=(+m[1]-1)+m[2],j=s.labels.indexOf(target);return j>=0?s[k]?.[j]:null};
-const periodLabel=p=>{const m=String(p||'').match(/^(\d{4})M(\d{2})$/);if(!m)return p||'';return new Intl.DateTimeFormat('da-DK',{month:'short',year:'numeric'}).format(new Date(+m[1],+m[2]-1,1))};
+const periodLabel=p=>{const value=String(p||''),m=value.match(/^(\d{4})M(\d{2})$/),q=value.match(/^(\d{4})Q(\d{2})$/);if(m)return new Intl.DateTimeFormat('da-DK',{month:'short',year:'numeric'}).format(new Date(+m[1],+m[2]-1,1));if(q)return `${+q[2]}. kvt. ${q[1]}`;return value};
 function entityById(id){return id==='__national__'?DATA.national:(DATA.municipalities?.[id]||null)}
 function entity(){return entityById(selected)}
 function comparisonEntity(){return comparison==='__none__'?null:entityById(comparison)}
@@ -98,6 +119,13 @@ function stackedBars(id,labels,datasets){
   showEmpty(c,false);
   charts[id]=new Chart(c,{type:'bar',data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:10,right:8,bottom:4,left:4}},scales:{x:{...xAxis(),stacked:true},y:{stacked:true,beginAtZero:true,grid:{color:COLORS.grid},ticks:{color:COLORS.muted,padding:8,callback:v=>nf0.format(v)}}},plugins:{legend:legendOptions(),tooltip:{callbacks:{title:items=>periodLabel(items[0]?.label),label:ctx=>ctx.dataset.label+': '+nf0.format(ctx.parsed.y)}}}}})
 }
+function horizontalBars(id,labels,datasets,kind='percent'){
+  const c=document.getElementById(id);destroy(id);
+  if(!labels?.length||!datasets.some(d=>d.data?.some(v=>v!=null))){showEmpty(c,true);return}
+  showEmpty(c,false);
+  charts[id]=new Chart(c,{type:'bar',data:{labels,datasets},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{top:10,right:12,bottom:4,left:4}},scales:{x:{beginAtZero:true,grid:{color:COLORS.grid},ticks:{color:COLORS.muted,padding:8,callback:v=>yFormat(kind,v)}},y:{grid:{display:false},ticks:{color:COLORS.muted,autoSkip:false}}},plugins:{legend:legendOptions(datasets.length>1),tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+yFormat(kind,ctx.parsed.x)}}}}})
+}
+function shareVector(values){const total=(values||[]).reduce((sum,value)=>sum+(value??0),0);return(values||[]).map(value=>value==null||!total?null:value/total*100)}
 function indexComparison(own,other,key,label,otherLabel){
   let labels=windowLabels(own),ownValues=align(own,key,labels),otherValues=compareEnabled()&&other?align(other,key,labels):null;
   const start=labels.findIndex((p,i)=>ownValues[i]!=null&&ownValues[i]!==0&&(!otherValues||(otherValues[i]!=null&&otherValues[i]!==0)));
@@ -118,9 +146,85 @@ function renderKpis(){
     return`<article class="kpi"><div class="label">${label}</div><div class="value">${current?(isPct?fmtPct(current.v):fmtNumber(current.v)):'Ikke tilgængelig'}</div><div class="small">${current?periodLabel(current.p):'Ingen data'} | ${unit}</div><div class="delta">${delta==null?'Årsændring: Ikke tilgængelig':`Årsændring: ${delta>0?'+':''}${isPct?nf1.format(delta)+' pct.point':nf0.format(delta)}`}</div>${benchmark}</article>`
   }).join('')
 }
+function comparisonBenchmark(ownCurrent,otherSeries,key){
+  if(!compareEnabled()||!ownCurrent)return'';
+  const otherValue=valueAtPeriod(otherSeries,key,ownCurrent.p);if(otherValue==null)return'';
+  const diff=ownCurrent.v-otherValue;
+  return`<div class="benchmark">${comparisonEntity()?.name||'Sammenligningsområde'}: ${fmtPct(otherValue)} | Forskel: ${diff>0?'+':''}${nf1.format(diff)} pct.point</div>`
+}
+function timeKpi(label,series,key,unit,isPct=false,benchmark=''){
+  const current=latest(series,key),lastYear=current?yearAgo(series,key,current.i):null,delta=current&&lastYear!=null?current.v-lastYear:null;
+  return`<article class="kpi"><div class="label">${label}</div><div class="value">${current?(isPct?fmtPct(current.v):fmtNumber(current.v)):'Ikke tilgængelig'}</div><div class="small">${current?periodLabel(current.p):'Ingen data'} | ${unit}</div><div class="delta">${delta==null?'Årsændring: Ikke tilgængelig':`Årsændring: ${delta>0?'+':''}${isPct?nf1.format(delta)+' pct.point':nf0.format(delta)}`}</div>${benchmark}</article>`
+}
+function renderCashKpis(){
+  const own=entity(),other=comparisonEntity(),cash=own?.cashAssistance,hours=own?.ordinaryHours;
+  const populationCurrent=latest(cash,'populationRate'),hoursCurrent=latest(hours,'share');
+  document.getElementById('cashKpis').innerHTML=[
+    timeKpi('Kontanthjælpsmodtagere',cash,'persons','personer'),
+    timeKpi('Fuldtidspersoner',cash,'fullTime','fuldtidspersoner'),
+    timeKpi('Andel af befolkningen',cash,'populationRate','af 16-66-årige',true,comparisonBenchmark(populationCurrent,other?.cashAssistance,'populationRate')),
+    timeKpi('Med ordinære løntimer',hours,'share','af modtagerne',true,comparisonBenchmark(hoursCurrent,other?.ordinaryHours,'share')),
+  ].join('')
+}
+function renderActivationKpis(){
+  const own=entity(),other=comparisonEntity(),activation=own?.activation,offers=own?.offers;
+  const degree=latest(activation,'degree'),affected=latest(activation,'affectedShare');
+  const rawCard=(label,value,unit)=>`<article class="kpi"><div class="label">${label}</div><div class="value">${value==null?'Ikke tilgængelig':fmtNumber(value)}</div><div class="small">${offers?.period?periodLabel(offers.period):'Ingen data'} | ${unit}</div><div class="delta">Seneste månedsopgørelse</div></article>`;
+  document.getElementById('activationKpis').innerHTML=[
+    timeKpi('Aktiveringsgrad',activation,'degree','af mulig tid',true,comparisonBenchmark(degree,other?.activation,'degree')),
+    timeKpi('Aktiveringsberørte',activation,'affectedShare','af modtagerne',true,comparisonBenchmark(affected,other?.activation,'affectedShare')),
+    rawCard('Aktiverede personer',offers?.activatedTotal,'personer'),
+    `<article class="kpi"><div class="label">Forløb pr. aktiveret</div><div class="value">${offers?.averageCourses==null?'Ikke tilgængelig':nf1.format(offers.averageCourses)}</div><div class="small">${offers?.period?periodLabel(offers.period):'Ingen data'} | ${offers?.coursesTotal==null?'antal forløb mangler':nf0.format(offers.coursesTotal)+' forløb i alt'}</div><div class="delta">En person kan deltage i flere tilbud</div></article>`,
+  ].join('')
+}
+function renderPolicyCharts(own,other){
+  const cash=own?.cashAssistance,otherCash=other?.cashAssistance,cashLabels=windowLabels(cash);
+  const cashSets=[{label:own?.name||'Valgt område',data:align(cash,'populationRate',cashLabels)}];
+  if(compareEnabled()&&otherCash)cashSets.push({label:other.name||'Sammenligningsområde',data:align(otherCash,'populationRate',cashLabels)});
+  line('cashAssistanceChart',cashLabels,cashSets,'percent',true);
+
+  const visitation=own?.cashVisitation,otherVisitation=other?.cashVisitation;
+  const visitationSets=visitation?[{label:own?.name||'Valgt område',data:shareVector(visitation.fullTime),backgroundColor:COLORS.green}]:[];
+  if(compareEnabled()&&otherVisitation)visitationSets.push({label:other.name||'Sammenligningsområde',data:shareVector(otherVisitation.fullTime),backgroundColor:COLORS.orange});
+  horizontalBars('cashVisitationChart',visitation?.labels||[],visitationSets,'percent');
+
+  const hours=own?.ordinaryHours,otherHours=other?.ordinaryHours,hourLabels=windowLabels(hours);
+  const hourSets=[{label:own?.name||'Valgt område',data:align(hours,'share',hourLabels)}];
+  if(compareEnabled()&&otherHours)hourSets.push({label:other.name||'Sammenligningsområde',data:align(otherHours,'share',hourLabels)});
+  line('ordinaryHoursChart',hourLabels,hourSets,'percent',true);
+
+  const outcome=own?.outcomes,otherOutcome=other?.outcomes;
+  document.getElementById('outcomePeriod').textContent=outcome?.period?periodLabel(outcome.period):'ikke tilgængeligt';
+  const outcomeLabels=(outcome?.horizons||[]).map(value=>`${value} måneder`),outcomeSets=[];
+  if(outcome){
+    outcomeSets.push({label:`${own.name} | job`,data:outcome.employment,borderColor:COLORS.selected});
+    outcomeSets.push({label:`${own.name} | uddannelse`,data:outcome.education,borderColor:COLORS.blue,borderDash:[6,4]});
+  }
+  if(compareEnabled()&&otherOutcome){
+    outcomeSets.push({label:`${other.name} | job`,data:otherOutcome.employment,borderColor:COLORS.orange});
+    outcomeSets.push({label:`${other.name} | uddannelse`,data:otherOutcome.education,borderColor:COLORS.purple,borderDash:[6,4]});
+  }
+  line('outcomeChart',outcomeLabels,outcomeSets,'percent',true);
+
+  const activation=own?.activation,otherActivation=other?.activation,activationLabels=windowLabels(activation);
+  const degreeSets=[{label:own?.name||'Valgt område',data:align(activation,'degree',activationLabels)}];
+  const affectedSets=[{label:own?.name||'Valgt område',data:align(activation,'affectedShare',activationLabels)}];
+  if(compareEnabled()&&otherActivation){
+    degreeSets.push({label:other.name||'Sammenligningsområde',data:align(otherActivation,'degree',activationLabels)});
+    affectedSets.push({label:other.name||'Sammenligningsområde',data:align(otherActivation,'affectedShare',activationLabels)});
+  }
+  line('activationDegreeChart',activationLabels,degreeSets,'percent',true);
+  line('activationAffectedChart',activationLabels,affectedSets,'percent',true);
+
+  const offers=own?.offers,otherOffers=other?.offers;
+  document.getElementById('offerPeriod').textContent=offers?.period?periodLabel(offers.period):'seneste måned';
+  const offerSets=offers?[{label:own?.name||'Valgt område',data:shareVector(offers.courses),backgroundColor:COLORS.green}]:[];
+  if(compareEnabled()&&otherOffers)offerSets.push({label:other.name||'Sammenligningsområde',data:shareVector(otherOffers.courses),backgroundColor:COLORS.orange});
+  horizontalBars('offerMixChart',offers?.labels||[],offerSets,'percent')
+}
 function renderCharts(){
   const m=entity(),other=comparisonEntity(),u=m?.unemployment,otherUnemployment=other?.unemployment;
-  if(!u){['unemploymentChart','compositionChart','longtermChart','unemploymentIndexChart','longtermIndexChart','longtermShareChart','benefitShareChart'].forEach(id=>showEmpty(document.getElementById(id),true));return}
+  if(!u){['unemploymentChart','compositionChart','longtermChart','unemploymentIndexChart','longtermIndexChart','longtermShareChart','benefitShareChart','cashAssistanceChart','cashVisitationChart','ordinaryHoursChart','outcomeChart','activationDegreeChart','activationAffectedChart','offerMixChart'].forEach(id=>showEmpty(document.getElementById(id),true));return}
   const ownLabels=windowLabels(u),rateSets=[{label:m.name||'Valgt område',data:align(u,'totalRate',ownLabels)}];
   if(compareEnabled()&&otherUnemployment)rateSets.push({label:other.name||'Sammenligningsområde',data:align(otherUnemployment,'totalRate',ownLabels)});
   line('unemploymentChart',ownLabels,rateSets,'percent',true);
@@ -134,9 +238,10 @@ function renderCharts(){
   line('longtermShareChart',shareLabels,longShareSets,'percent',true);
   const benefitSets=[{label:m.name||'Valgt område',data:ratioSeries(ownLabels,u,'dagpenge',u,'total')}];
   if(compareEnabled()&&otherUnemployment)benefitSets.push({label:other.name||'Sammenligningsområde',data:ratioSeries(ownLabels,otherUnemployment,'dagpenge',otherUnemployment,'total')});
-  line('benefitShareChart',ownLabels,benefitSets,'percent',true)
+  line('benefitShareChart',ownLabels,benefitSets,'percent',true);
+  renderPolicyCharts(m,other)
 }
-function renderAll(){renderKpis();renderCharts()}
+function renderAll(){renderKpis();renderCashKpis();renderActivationKpis();renderCharts()}
 function choose(id){
   const previous=selected;selected=id;
   if(comparison===selected)comparison=previous;

@@ -4,7 +4,7 @@ from pathlib import Path
 BASE=Path(__file__).resolve().parents[1]
 data=json.loads((BASE/'data/dashboard-data.json').read_text(encoding='utf-8'))
 html=(BASE/'index.html').read_text(encoding='utf-8')
-for needle in ['Kommunal beskæftigelsesindsats','municipalitySelect','comparisonSelect','Hele landet','unemploymentChart','compositionChart','longtermChart','unemploymentIndexChart','longtermIndexChart','longtermShareChart','benefitShareChart','indexComparison']:
+for needle in ['Kommunal beskæftigelsesindsats','municipalitySelect','comparisonSelect','Hele landet','unemploymentChart','compositionChart','longtermChart','unemploymentIndexChart','longtermIndexChart','longtermShareChart','benefitShareChart','cashKpis','cashAssistanceChart','cashVisitationChart','ordinaryHoursChart','outcomeChart','activationKpis','activationDegreeChart','activationAffectedChart','offerMixChart','indexComparison']:
     assert needle in html, f'Mangler {needle} i index.html'
 for forbidden in ['Danmarkskort','rankingList','leaflet','id="map"','newlyChart','durationChart','exitChart','Nytilmeldte ledige','Andel i beskæftigelse efter nyledighed']:
     assert forbidden.lower() not in html.lower(), f'Uønsket kort/rangering findes stadig: {forbidden}'
@@ -12,8 +12,8 @@ state=data.get('meta',{}).get('updateStatus',{}).get('state')
 assert state=='ok', f'Aktive kilder er ikke fuldt opdateret: {state}'
 assert not data.get('meta',{}).get('updateStatus',{}).get('failed',[]), 'Fejllisten skal være tom ved ok-status'
 sources=data.get('meta',{}).get('sourceStatus',{})
-required={'unemployment','unemploymentNational','longterm','longtermNational'}
-assert set(sources)==required, f'Kilderegisteret skal kun indeholde aktive kilder: {set(sources)}'
+required={'unemployment','unemploymentNational','longterm','longtermNational','cashAssistance','cashVisitation','activation','offers','ordinaryHours','outcomes'}
+assert set(sources)==required, f'Kilderegisteret skal indeholde alle aktive kilder: {set(sources)}'
 for key in required:
     assert sources[key].get('state')=='ok', f'Kilden {key} er ikke ok'
     assert sources[key].get('latestPeriod'), f'Kilden {key} mangler seneste periode'
@@ -34,6 +34,29 @@ assert len(valid_long)>=90, f'Kun {len(valid_long)} kommuner med langtidsledighe
 nat_long=data.get('national',{}).get('longterm',{})
 assert nat_long.get('labels'), 'National langtidsledighed mangler'
 assert nat_long['labels'][-1]==sources['longtermNational']['latestPeriod']
+policy_modules={
+    'cashAssistance':('labels','populationRate'),
+    'cashVisitation':('labels','fullTime'),
+    'activation':('labels','degree'),
+    'offers':('labels','courses'),
+    'ordinaryHours':('labels','share'),
+    'outcomes':('horizons','employment'),
+}
+for module,(labels_key,value_key) in policy_modules.items():
+    valid=[v for v in data.get('municipalities',{}).values() if v.get(module,{}).get(labels_key)]
+    assert len(valid)==98, f'Forventede 98 kommuner med {module}, fandt {len(valid)}'
+    assert data.get('national',{}).get(module,{}).get(labels_key), f'Landstal mangler for {module}'
+    assert any(any(value is not None for value in area[module].get(value_key,[])) for area in valid), f'Ingen gyldige værdier for {module}'
+cash=data.get('national',{}).get('cashAssistance',{})
+assert cash.get('labels',[])[-1]==sources['cashAssistance']['latestPeriod']
+activation=data.get('national',{}).get('activation',{})
+assert activation.get('labels',[])[-1]==sources['activation']['latestPeriod']
+offers=data.get('national',{}).get('offers',{})
+assert offers.get('period')==sources['offers']['latestPeriod']
+assert len(offers.get('labels',[]))==5, 'Der skal være fem hovedtyper af aktiveringstilbud'
+outcomes=data.get('national',{}).get('outcomes',{})
+assert outcomes.get('period')==sources['outcomes']['latestPeriod']
+assert outcomes.get('horizons')==[3,6,12], 'Resultater skal vises efter 3, 6 og 12 måneder'
 for area in data.get('municipalities',{}).values():
     for retired in ('newlyRegistered','duration','employmentExit'):
         assert retired not in area, f'Udgået modul ligger stadig i kommunedata: {retired}'
