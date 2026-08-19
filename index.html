@@ -54,8 +54,8 @@ h2{font-size:1.5rem;margin:40px 0 16px;border-bottom:3px solid var(--green);padd
 <div class="kpis" id="cashKpis"></div>
 <div class="grid2" style="margin-top:18px">
   <article class="card wide"><h3>Kontanthjælp over tid</h3><p class="small">Omfatter både jobparate og ikke-jobparate kontanthjælpsmodtagere. Grafen viser fuldtidspersoner i pct. af befolkningen 16-66 år og kan sammenlignes direkte mellem områder.</p><div class="chart"><canvas id="cashAssistanceChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60a02.</p></article>
-  <article class="card"><h3>Visitationskategorier</h3><p class="small">Fordeling af fuldtidspersoner i seneste måned. Vises som andele, så områder af forskellig størrelse kan sammenlignes.</p><div class="chart tall"><canvas id="cashVisitationChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60a02. Egne andelsberegninger.</p></article>
-  <article class="card"><h3>Ordinære løntimer</h3><p class="small">Andel kontanthjælpsmodtagere med ordinære løntimer i måneden.</p><div class="chart tall"><canvas id="ordinaryHoursChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60j01.</p></article>
+  <article class="card"><h3>Visitationskategorier</h3><p class="small">Fordeling af fuldtidspersoner i <span id="visitationPeriod">seneste måned</span>. Vises som andele, så områder af forskellig størrelse kan sammenlignes.</p><div class="chart tall"><canvas id="cashVisitationChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60a02. Egne andelsberegninger.</p></article>
+  <article class="card"><h3>Ordinære løntimer</h3><p class="small">Andel af alle kontanthjælpsmodtagere, både jobparate og ikke-jobparate, med ordinære løntimer i <span id="ordinaryHoursPeriod">seneste måned</span>.</p><div class="chart tall"><canvas id="ordinaryHoursChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60j01.</p></article>
   <article class="card wide"><h3>Job og uddannelse efter afsluttet forløb</h3><p class="small">Andel i lønmodtagerbeskæftigelse eller uddannelse 3, 6 og 12 måneder efter afsluttet kontanthjælpsforløb. Afgangskvartal: <span id="outcomePeriod">ikke tilgængeligt</span>.</p><div class="chart"><canvas id="outcomeChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y60b15. Samme fuldt modnede afgangskvartal anvendes for begge områder.</p></article>
 </div>
 
@@ -184,11 +184,13 @@ function renderPolicyCharts(own,other){
   line('cashAssistanceChart',cashLabels,cashSets,'percent',true);
 
   const visitation=own?.cashVisitation,otherVisitation=other?.cashVisitation;
+  document.getElementById('visitationPeriod').textContent=visitation?.period?periodLabel(visitation.period):'seneste måned';
   const visitationSets=visitation?[{label:own?.name||'Valgt område',data:shareVector(visitation.fullTime),backgroundColor:COLORS.green}]:[];
   if(compareEnabled()&&otherVisitation)visitationSets.push({label:other.name||'Sammenligningsområde',data:shareVector(otherVisitation.fullTime),backgroundColor:COLORS.orange});
   horizontalBars('cashVisitationChart',visitation?.labels||[],visitationSets,'percent');
 
   const hours=own?.ordinaryHours,otherHours=other?.ordinaryHours,hourLabels=windowLabels(hours);
+  const hoursPeriod=latest(hours,'share');document.getElementById('ordinaryHoursPeriod').textContent=hoursPeriod?.p?periodLabel(hoursPeriod.p):'seneste måned';
   const hourSets=[{label:own?.name||'Valgt område',data:align(hours,'share',hourLabels)}];
   if(compareEnabled()&&otherHours)hourSets.push({label:other.name||'Sammenligningsområde',data:align(otherHours,'share',hourLabels)});
   line('ordinaryHoursChart',hourLabels,hourSets,'percent',true);
