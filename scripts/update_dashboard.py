@@ -2,7 +2,7 @@
 from __future__ import annotations
 import json, os, re, math, urllib.request, urllib.error
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -61,17 +61,17 @@ def classify(r,exclude):
     if 'i alt' in text or 'alle' in text or 'total' in text:return 'total'
     return 'other'
 
-def query_candidates(table,months=60,expand_ygrp=True):
-    ygrp='*' if expand_ygrp else '/'
+def query_candidates(table,months=60,expand_ygrp=True,national=False):
+    ygrp='*' if expand_ygrp else '/'; area='/' if national else '*'
     return [
-        f'data/{table}?mgroup.*=*&period.M=latest:{months}&hierarchy._nykom=*&hierarchy._ygrpi09={ygrp}&hierarchy._akassebl=/&format=json',
-        f'data/{table}?mgroup.*=*&period.M=latest:{months}&hierarchy._nykom=*&hierarchy._ygrpi09={ygrp}&format=json',
-        f'data/{table}?mgroup.*=*&period.M=latest:{months}&hierarchy._nykom=*&format=json'
+        f'data/{table}?mgroup.*=*&period.M=latest:{months}&hierarchy._nykom={area}&hierarchy._ygrpi09={ygrp}&hierarchy._akassebl=/&format=json',
+        f'data/{table}?mgroup.*=*&period.M=latest:{months}&hierarchy._nykom={area}&hierarchy._ygrpi09={ygrp}&format=json',
+        f'data/{table}?mgroup.*=*&period.M=latest:{months}&hierarchy._nykom={area}&format=json'
     ]
 
-def fetch_first(table,months=60,expand_ygrp=True):
+def fetch_first(table,months=60,expand_ygrp=True,national=False):
     errors=[]
-    for q in query_candidates(table,months,expand_ygrp):
+    for q in query_candidates(table,months,expand_ygrp,national):
         try:
             r=records(q)
             if r:return r
@@ -81,7 +81,7 @@ def fetch_first(table,months=60,expand_ygrp=True):
 def build_time(rows,kind):
     if not rows:return {}
     pk,ak=period_key(rows[0]),area_key(rows[0])
-    if not pk or not ak: raise RuntimeError(f'Mangler periode/kommune: {list(rows[0])}')
+    if not pk or not ak: raise RuntimeError(f'Mangler periode/område: {list(rows[0])}')
     measures={
       'unemployment':find_col(rows[0],[['fuldtidsled','pct'],['arbejdsstyr','pct']]),
       'count':find_col(rows[0],[['ledige','fuldtidsperson'],['fuldtidsled'],['antal','fuldtidsperson']]),
@@ -94,7 +94,7 @@ def build_time(rows,kind):
     if rate:ex.add(rate)
     g=defaultdict(lambda:defaultdict(lambda:defaultdict(dict))); names={}
     for r in rows:
-        area=str(r.get(ak,'')).replace(' Kommune','').strip(); aid=norm(area); p=str(r.get(pk,''));
+        area=str(r.get(ak,'')).replace(' Kommune','').strip(); aid=norm(area); p=str(r.get(pk,''))
         if not area or not p:continue
         names[aid]=area; group=classify(r,ex); v=num(r.get(mk)); rv=num(r.get(rate)) if rate else None
         if v is not None:g[aid][p][group]['value']=v
@@ -116,9 +116,12 @@ def build_time(rows,kind):
         out[aid]=e
     return out
 
+def first_series(series):
+    if not series: raise RuntimeError('Ingen data i national serie')
+    s=next(iter(series.values())); s['name']='Hele landet'; return s
+
 def find_table(terms):
-    payload=get('tables?format=json')
-    best=[]
+    payload=get('tables?format=json'); best=[]
     def walk(x):
         if isinstance(x,dict):
             text=norm(json.dumps(x,ensure_ascii=False)); tid=next((str(v) for k,v in x.items() if norm(k) in {'id','tableid','table_id'} and isinstance(v,str) and re.match(r'^[A-Za-z].*\d',v)),None)
@@ -126,8 +129,7 @@ def find_table(terms):
             for v in x.values():walk(v)
         elif isinstance(x,list):
             for v in x:walk(v)
-    walk(payload)
-    return best[0] if best else None
+    walk(payload); return best[0] if best else None
 
 def duration(rows,jobready=False):
     if not rows:return {}
@@ -142,8 +144,9 @@ def duration(rows,jobready=False):
         names[aid]=area; periods[aid]=max(periods.get(aid,''),str(r.get(pk,''))); g[aid][lab]+=v
     return {aid:{'name':names[aid],'period':periods[aid],'labels':list(vals),'values':[vals[x] for x in vals]} for aid,vals in g.items()}
 
-def fetch_duration(table,jobready=False):
-    qs=[f'data/{table}?mgroup.*=*&period.M=latest:1&hierarchy._nykom=*&hierarchy._varighed=*&format=json',f'data/{table}?mgroup.*=*&period.M=latest:1&hierarchy._nykom=*&format=json']
+def fetch_duration(table,jobready=False,national=False):
+    area='/' if national else '*'
+    qs=[f'data/{table}?mgroup.*=*&period.M=latest:1&hierarchy._nykom={area}&hierarchy._varighed=*&format=json',f'data/{table}?mgroup.*=*&period.M=latest:1&hierarchy._nykom={area}&format=json']
     last=None
     for q in qs:
         try:return duration(records(q),jobready)
@@ -166,45 +169,73 @@ def exit_series(rows):
     return {aid:{'name':names[aid],'period':periods[aid],'months':[3,6,9,12],'dagpenge':[g[aid]['dagpenge'].get(m) for m in [3,6,9,12]],'kontanthjaelp':[g[aid]['kontanthjaelp'].get(m) for m in [3,6,9,12]]} for aid in g}
 
 def main():
-    now=datetime.now(ZoneInfo('Europe/Copenhagen')); sources={}; municipalities={}; failures=[]; successful=[]
+    now=datetime.now(ZoneInfo('Europe/Copenhagen')); sources={}; municipalities={}; national={'name':'Hele landet'}; failures=[]; successful=[]
     def add_source(name,table,series,note=''):
         latest=max((v.get('labels',[''])[-1] if v.get('labels') else v.get('period','') for v in series.values()),default='') or None
         sources[name]={'state':'ok','source':'Jobindsats.dk / STAR','dataset':table,'latestPeriod':latest,'checkedAt':now.isoformat(timespec='seconds'),'note':note};successful.append(name)
+    def fail(name,table,e):
+        sources[name]={'state':'failed','source':'Jobindsats.dk / STAR','dataset':table,'note':str(e)[:500]};failures.append(name)
+
+    table=KNOWN['unemployment']
     try:
-        rows=fetch_first(KNOWN['unemployment'],60,True); series=build_time(rows,'count')
-        for aid,s in series.items():municipalities.setdefault(aid,{'name':s['name']})['unemployment']=s
-        add_source('unemployment',KNOWN['unemployment'],series,'Faktisk registerbaseret ledighed. Ikke sæsonkorrigeret på kommuneniveau.')
-    except Exception as e:sources['unemployment']={'state':'failed','dataset':KNOWN['unemployment'],'note':str(e)[:500]};failures.append('unemployment')
+        ser=build_time(fetch_first(table,60,True,False),'count')
+        for aid,s in ser.items():municipalities.setdefault(aid,{'name':s['name']})['unemployment']=s
+        add_source('unemployment',table,ser,'Faktisk registerbaseret ledighed. Ikke sæsonkorrigeret på kommuneniveau.')
+    except Exception as e: fail('unemployment',table,e)
     try:
-        rows=fetch_first(KNOWN['registered'],36,True); series=build_time(rows,'new')
-        for aid,s in series.items():municipalities.setdefault(aid,{'name':s['name']})['newlyRegistered']=s
-        add_source('registered',KNOWN['registered'],series,'Nytilmeldte ledige på Jobnet.')
-    except Exception as e:sources['registered']={'state':'failed','dataset':KNOWN['registered'],'note':str(e)[:500]};failures.append('registered')
+        ser=build_time(fetch_first(table,60,True,True),'count'); national['unemployment']=first_series(ser); add_source('unemploymentNational',table,{'hele landet':national['unemployment']},'Officielt landstal fra samme Jobindsats-måling.')
+    except Exception as e: fail('unemploymentNational',table,e)
+
+    table=KNOWN['registered']
     try:
-        rows=fetch_first(KNOWN['longterm'],36,True); series=build_time(rows,'long')
-        for aid,s in series.items():municipalities.setdefault(aid,{'name':s['name']})['longterm']=s
-        add_source('longterm',KNOWN['longterm'],series)
-    except Exception as e:sources['longterm']={'state':'failed','dataset':KNOWN['longterm'],'note':str(e)[:500]};failures.append('longterm')
+        ser=build_time(fetch_first(table,36,True,False),'new')
+        for aid,s in ser.items():municipalities.setdefault(aid,{'name':s['name']})['newlyRegistered']=s
+        add_source('registered',table,ser,'Nytilmeldte ledige på Jobnet.')
+    except Exception as e: fail('registered',table,e)
+    try:
+        ser=build_time(fetch_first(table,36,True,True),'new'); national['newlyRegistered']=first_series(ser); add_source('registeredNational',table,{'hele landet':national['newlyRegistered']})
+    except Exception as e: fail('registeredNational',table,e)
+
+    table=KNOWN['longterm']
+    try:
+        ser=build_time(fetch_first(table,36,True,False),'long')
+        for aid,s in ser.items():municipalities.setdefault(aid,{'name':s['name']})['longterm']=s
+        add_source('longterm',table,ser)
+    except Exception as e: fail('longterm',table,e)
+    try:
+        ser=build_time(fetch_first(table,36,True,True),'long'); national['longterm']=first_series(ser); add_source('longtermNational',table,{'hele landet':national['longterm']})
+    except Exception as e: fail('longtermNational',table,e)
+
     for name,terms,jobready in [('dagpengeDuration',['forloeb','varighed','dagpenge'],False),('kontanthjaelpDuration',['forloeb','varighed','kontanthjaelp'],True)]:
-        table=KNOWN.get(name) or find_table(terms)
+        table=KNOWN.get(name) or find_table(terms); target='dagpenge' if not jobready else 'kontanthjaelp'
         try:
             if not table:raise RuntimeError('Tabel kunne ikke identificeres via metadata')
-            ser=fetch_duration(table,jobready)
-            for aid,s in ser.items():municipalities.setdefault(aid,{'name':s['name']}).setdefault('duration',{})['dagpenge' if not jobready else 'kontanthjaelp']=s
+            ser=fetch_duration(table,jobready,False)
+            for aid,s in ser.items():municipalities.setdefault(aid,{'name':s['name']}).setdefault('duration',{})[target]=s
             add_source(name,table,ser)
-        except Exception as e:sources[name]={'state':'failed','dataset':table,'note':str(e)[:500]};failures.append(name)
+        except Exception as e: fail(name,table,e)
+        try:
+            if not table:raise RuntimeError('Tabel kunne ikke identificeres via metadata')
+            ser=fetch_duration(table,jobready,True); national.setdefault('duration',{})[target]=first_series(ser); add_source(name+'National',table,{'hele landet':national['duration'][target]})
+        except Exception as e: fail(name+'National',table,e)
+
     table=find_table(['andel','beskaeftigelse','nyledighed']) or find_table(['beskaeftigelse','nyledighed'])
     try:
         if not table:raise RuntimeError('Tabel kunne ikke identificeres via metadata')
-        rows=fetch_first(table,1,True); ser=exit_series(rows)
+        ser=exit_series(fetch_first(table,1,True,False))
         for aid,s in ser.items():municipalities.setdefault(aid,{'name':s['name']})['employmentExit']=s
         add_source('employmentExit',table,ser)
-    except Exception as e:sources['employmentExit']={'state':'failed','dataset':table,'note':str(e)[:500]};failures.append('employmentExit')
+    except Exception as e: fail('employmentExit',table,e)
+    try:
+        if not table:raise RuntimeError('Tabel kunne ikke identificeres via metadata')
+        ser=exit_series(fetch_first(table,1,True,True)); national['employmentExit']=first_series(ser); add_source('employmentExitNational',table,{'hele landet':national['employmentExit']})
+    except Exception as e: fail('employmentExitNational',table,e)
+
     state='ok' if not failures else ('partial' if successful else 'failed')
     if not municipalities:raise RuntimeError('Ingen kommunedata kunne hentes')
     months=['januar','februar','marts','april','maj','juni','juli','august','september','oktober','november','december']
-    data={'meta':{'title':'Kommunal beskæftigelsesindsats','updated':f'{now.day}. {months[now.month-1]} {now.year}','retrievedAt':now.isoformat(timespec='seconds'),'source':'Jobindsats.dk / STAR','mapSource':'Dataforsyningen','sourceStatus':sources,'updateStatus':{'state':state,'successful':successful,'failed':failures,'checkedAt':now.isoformat(timespec='seconds')}},'municipalities':municipalities,'regions':{},'national':{}}
+    data={'meta':{'title':'Kommunal beskæftigelsesindsats','updated':f'{now.day}. {months[now.month-1]} {now.year}','retrievedAt':now.isoformat(timespec='seconds'),'source':'Jobindsats.dk / STAR','sourceStatus':sources,'updateStatus':{'state':state,'successful':successful,'failed':failures,'checkedAt':now.isoformat(timespec='seconds')}},'municipalities':municipalities,'national':national}
     DATA.parent.mkdir(parents=True,exist_ok=True);DATA.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    STATUS.parent.mkdir(parents=True,exist_ok=True);STATUS.write_text(f'status: {state}\ntid_utc: {datetime.utcnow().isoformat(timespec="seconds")}Z\ndato_dk: {now.date()}\n',encoding='utf-8')
-    print(f'Opdateret: {state}. Kommuner: {len(municipalities)}')
+    STATUS.parent.mkdir(parents=True,exist_ok=True);STATUS.write_text(f'status: {state}\ntid_utc: {datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00","Z")}\ndato_dk: {now.date()}\n',encoding='utf-8')
+    print(f'Opdateret: {state}. Kommuner: {len(municipalities)}. Nationale sektioner: {len(national)-1}')
 if __name__=='__main__':main()
