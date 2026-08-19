@@ -73,7 +73,8 @@ function allMunicipalities(){return Object.entries(DATA.municipalities||{}).filt
 function allAreas(){return[['__national__',DATA.national||{name:'Hele landet'}],...allMunicipalities()]}
 function updateComparisonOptions(){
   const select=document.getElementById('comparisonSelect'),areas=allAreas().filter(([id])=>id!==selected);
-  select.innerHTML='<option value="__none__">Ingen sammenligning</option>'+areas.map(([id,m])=>`<option value="${id}">${m.name}</option>`).join('');
+  const nationalOption=areas.find(([id])=>id==='__national__'),municipalOptions=areas.filter(([id])=>id!=='__national__');
+  select.innerHTML=(nationalOption?`<option value="__national__">${nationalOption[1].name}</option>`:'')+'<option value="__none__">Ingen sammenligning</option>'+municipalOptions.map(([id,m])=>`<option value="${id}">${m.name}</option>`).join('');
   if(!areas.some(([id])=>id===comparison))comparison='__none__';
   select.value=comparison
 }
