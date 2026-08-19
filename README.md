@@ -2,7 +2,7 @@
 
 Interaktivt dashboard om kommunal ledighed og langtidsledighed med fokus på sammenlignelige mål.
 
-Dashboardet åbner som standard på **Hele landet**. Øverst kan man vælge en kommune og slå sammenligning med det officielle landstal til eller fra.
+Dashboardet åbner som standard på **Hele landet**. Øverst kan man vælge et område og sammenligne med hele landet eller en af de øvrige kommuner.
 
 Dashboardet indeholder:
 
