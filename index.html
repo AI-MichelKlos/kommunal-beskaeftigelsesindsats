@@ -1,57 +1,142 @@
 <!doctype html>
 <html lang="da">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Sammenlign kommunal ledighed og langtidsledighed med hele landet.">
 <title>Kommunal beskæftigelsesindsats</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
-:root{--ink:#0F2B36;--green:#6B9E78;--green2:#3d6b47;--orange:#E07A40;--blue:#4A90C4;--purple:#9B59B6;--line:#E8EBE8;--muted:#68777d;--paper:#fff;--soft:#f5f7f5}
+:root{--ink:#0F2B36;--green:#6B9E78;--green2:#3d6b47;--orange:#E07A40;--blue:#4A90C4;--purple:#9B59B6;--line:#E8EBE8;--muted:#68777d;--paper:#fff;--soft:#f5f7f5;--shadow:0 6px 20px rgba(15,43,54,.07)}
 *{box-sizing:border-box}body{margin:0;background:var(--soft);font-family:'Segoe UI',Arial,sans-serif;color:var(--ink)}
-.hero{background:linear-gradient(135deg,#0F2B36,#244d4b);color:white;padding:34px 20px}.hero>div{max-width:1280px;margin:auto}.hero h1{margin:0;font-size:clamp(2rem,4vw,3.4rem)}.hero p{max-width:900px;line-height:1.5;color:#e8eeee}.byline{font-size:.8rem;color:#c9d8d5;font-weight:600}
-main{max-width:1280px;margin:auto;padding:24px 20px 55px}.toolbar,.card,.kpi{background:white;border:1px solid var(--line);border-radius:12px;box-shadow:0 5px 20px rgba(15,43,54,.05)}
-.toolbar{padding:14px 16px;display:flex;gap:12px;align-items:end;flex-wrap:wrap}.control{display:grid;gap:5px;font-size:.78rem;font-weight:700;color:var(--muted)}select,button{font:inherit;border:1px solid #d6dfd9;border-radius:8px;background:white;padding:8px 10px;color:var(--ink)}button{cursor:pointer}.range{display:flex;gap:7px;flex-wrap:wrap}.range button.active{background:var(--green2);color:white;border-color:var(--green2)}.updated{margin-left:auto;font-size:.8rem;color:var(--muted)}
-h2{font-size:1.5rem;margin:36px 0 14px;border-bottom:3px solid var(--green);padding-bottom:7px}.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.kpi{padding:16px;border-top:5px solid var(--green)}.kpi .label{font-weight:750}.kpi .value{font-size:2rem;font-weight:800;margin:7px 0 3px}.small{font-size:.78rem;color:var(--muted);line-height:1.45}.delta{margin-top:8px;border-top:1px solid var(--line);padding-top:8px;font-size:.8rem}.benchmark{margin-top:7px;padding-top:7px;border-top:1px dashed var(--line);font-size:.78rem;color:var(--green2);font-weight:700}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{padding:18px}.card h3{margin:0 0 5px}.chart{height:390px;position:relative}.wide{grid-column:1/-1}.status{padding:10px 12px;border-radius:8px;background:#fff4e8;color:#7f4b13;margin-top:12px;display:none}.source{font-size:.75rem;color:var(--muted);margin-top:8px;line-height:1.4}.empty{display:none;align-items:center;justify-content:center;height:100%;text-align:center;color:var(--muted);padding:20px;background:#fafbfa;border-radius:8px}
-@media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.wide{grid-column:auto}.updated{width:100%;margin-left:0}}@media(max-width:560px){main{padding:14px}.kpis{grid-template-columns:1fr}.chart{height:330px}}
+.hero{background:linear-gradient(135deg,#0F2B36,#244d4b);color:white;padding:32px 20px}.hero>div{max-width:1280px;margin:auto}.hero h1{margin:0;font-size:clamp(2.1rem,4vw,3.4rem);line-height:1.08}.hero p{max-width:900px;line-height:1.5;color:#e8eeee;margin:10px 0 0}.byline{font-size:.78rem;color:#c9d8d5;font-weight:600;margin-top:5px}
+main{max-width:1280px;margin:auto;padding:28px 20px 55px}.toolbar,.card,.kpi{background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+.toolbar{padding:16px;display:flex;gap:14px;align-items:end;flex-wrap:wrap}.control{display:grid;gap:5px;font-size:.78rem;font-weight:700;color:var(--muted)}select,button{font:inherit;border:1px solid #d6dfd9;border-radius:8px;background:white;padding:9px 11px;color:var(--ink)}button{cursor:pointer}.range{display:flex;gap:7px;flex-wrap:wrap}.range button.active{background:var(--green2);color:white;border-color:var(--green2)}.compare-toggle{display:flex;align-items:center;gap:8px;min-height:39px;padding:8px 11px;border:1px solid #d6dfd9;border-radius:8px;background:#fff;color:var(--ink);font-size:.84rem;font-weight:700}.compare-toggle input{accent-color:var(--green2)}.compare-toggle:has(input:disabled){opacity:.55}.updated{margin-left:auto;font-size:.8rem;color:var(--muted);padding-bottom:9px}
+h2{font-size:1.5rem;margin:40px 0 16px;border-bottom:3px solid var(--green);padding-bottom:8px}.section-intro{margin:-7px 0 18px;color:var(--muted);line-height:1.5;max-width:900px}.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.kpi{padding:16px;border-top:4px solid var(--green)}.kpi .label{font-weight:750}.kpi .value{font-size:2rem;font-weight:800;margin:7px 0 3px}.small{font-size:.78rem;color:var(--muted);line-height:1.45}.delta{margin-top:8px;border-top:1px solid var(--line);padding-top:8px;font-size:.8rem}.benchmark{margin-top:7px;padding-top:7px;border-top:1px dashed var(--line);font-size:.78rem;color:var(--green2);font-weight:700}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{padding:20px}.card h3{margin:0 0 5px}.chart{height:390px;position:relative}.wide{grid-column:1/-1}.status{padding:11px 13px;border-radius:8px;background:#fff4e8;color:#7f4b13;margin-top:12px;display:none}.source{font-size:.75rem;color:var(--muted);margin:12px 0 0;padding-top:10px;border-top:1px solid var(--line);line-height:1.4}.empty{display:none;align-items:center;justify-content:center;height:100%;text-align:center;color:var(--muted);padding:20px;background:#fafbfa;border-radius:8px}.method{margin-top:30px;padding:16px 18px;background:#eef3f0;border-left:4px solid var(--green);border-radius:8px;color:var(--muted);font-size:.84rem;line-height:1.55}.method strong{color:var(--ink)}footer{padding:0 20px 38px;color:var(--muted);font-size:.78rem;text-align:center}footer a{color:var(--green2)}
+@media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.wide{grid-column:auto}.updated{width:100%;margin-left:0;padding-bottom:0}}
+@media(max-width:560px){main{padding:14px}.toolbar{padding:14px}.control,.control select{width:100%}.kpis{grid-template-columns:1fr}.chart{height:340px}.card{padding:16px}.compare-toggle{width:100%}}
 </style>
-</head><body>
-<header class="hero"><div><h1>Kommunal beskæftigelsesindsats</h1><div class="byline">Udarbejdet af Michel Klos</div><p>Ledighed, sammensætning, tilgang, varighed og vej til job for dagpengemodtagere og arbejdsmarkedsparate kontanthjælpsmodtagere.</p></div></header>
+</head>
+<body>
+<header class="hero"><div><h1>Kommunal beskæftigelsesindsats</h1><div class="byline">Udarbejdet af Michel Klos</div><p>Ledighed og langtidsledighed i den valgte kommune med mulighed for at sammenligne udviklingen med hele landet.</p></div></header>
 <main>
-<div class="toolbar"><label class="control">Vælg område<select id="municipalitySelect"></select></label><div class="control">Vis periode<div class="range"><button data-months="12">12 mdr.</button><button data-months="36" class="active">36 mdr.</button><button data-months="60">60 mdr.</button></div></div><span class="updated" id="updated"></span></div><div class="status" id="status"></div>
-<h2>Ledigheden lige nu</h2><div class="kpis" id="kpis"></div>
-<h2>Udviklingen</h2><div class="grid2"><article class="card wide"><h3>Ledighed over tid</h3><p class="small">Når en kommune er valgt, sammenlignes ledighedsprocenten med hele landet.</p><div class="chart"><canvas id="unemploymentChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR.</p></article><article class="card"><h3>Ledige fordelt på ydelse</h3><div class="chart"><canvas id="compositionChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR.</p></article><article class="card"><h3>Langtidsledige</h3><div class="chart"><canvas id="longtermChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR.</p></article></div>
-<h2>Ledighedspulsen</h2><div class="grid2"><article class="card wide"><h3>Nytilmeldte ledige på Jobnet</h3><p class="small">En tidlig indikator for bevægelser ind i ledighed.</p><div class="chart"><canvas id="newlyChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR. Målingen er ikke identisk med den endelige registerbaserede ledighed.</p></article></div>
-<h2>Hvor længe er de ledige?</h2><div class="grid2"><article class="card wide"><h3>Forløb fordelt på varighed</h3><div class="chart"><canvas id="durationChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR. Dagpenge og arbejdsmarkedsparate kontanthjælpsmodtagere vises, når begge serier er tilgængelige.</p></article></div>
-<h2>Vejen til job</h2><div class="grid2"><article class="card wide"><h3>Andel i beskæftigelse efter nyledighed</h3><p class="small">3, 6, 9 og 12 måneder efter nyledighed. Når en kommune er valgt, sammenlignes procenterne med hele landet.</p><div class="chart"><canvas id="exitChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR.</p></article></div>
+<div class="toolbar">
+  <label class="control">Vælg kommune<select id="municipalitySelect"></select></label>
+  <div class="control">Vis periode<div class="range"><button data-months="12">12 mdr.</button><button data-months="36" class="active">36 mdr.</button><button data-months="60">60 mdr.</button></div></div>
+  <label class="compare-toggle"><input type="checkbox" id="compareNational" checked> Sammenlign med hele landet</label>
+  <span class="updated" id="updated"></span>
+</div>
+<div class="status" id="status"></div>
+
+<h2>Ledigheden lige nu</h2>
+<div class="kpis" id="kpis"></div>
+
+<h2>Udviklingen</h2>
+<p class="section-intro">Niveauerne viser den valgte kommunes faktiske tal. Ledighedsprocenten kan sammenlignes direkte med hele landet.</p>
+<div class="grid2">
+  <article class="card wide"><h3>Ledighed over tid</h3><p class="small">Ledighed i pct. af arbejdsstyrken. Sammenligning med hele landet kan slås til og fra øverst.</p><div class="chart"><canvas id="unemploymentChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y25i01.</p></article>
+  <article class="card"><h3>Ledige fordelt på ydelse</h3><p class="small">Faktiske fuldtidspersoner i det valgte område.</p><div class="chart"><canvas id="compositionChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y25i01.</p></article>
+  <article class="card"><h3>Langtidsledige</h3><p class="small">Faktiske personer i det valgte område.</p><div class="chart"><canvas id="longtermChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y25i09.</p></article>
+</div>
+
+<h2>Sammenlign udviklingen</h2>
+<p class="section-intro">Indeks og andele gør det muligt at sammenligne en kommune med hele landet uden at forskelle i befolkningsstørrelse dominerer billedet.</p>
+<div class="grid2">
+  <article class="card"><h3>Ledige, indeks 100</h3><p class="small">Første fælles måned i den valgte periode er sat til 100.</p><div class="chart"><canvas id="unemploymentIndexChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y25i01. Egne indeksberegninger.</p></article>
+  <article class="card"><h3>Langtidsledige, indeks 100</h3><p class="small">Første fælles måned i den valgte periode er sat til 100.</p><div class="chart"><canvas id="longtermIndexChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y25i09. Egne indeksberegninger.</p></article>
+  <article class="card"><h3>Dagpengeandel blandt langtidsledige</h3><p class="small">Langtidsledige dagpengemodtagere som andel af alle langtidsledige i området.</p><div class="chart"><canvas id="longtermShareChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y25i09. Egne beregninger.</p></article>
+  <article class="card"><h3>Dagpengeandel af ledigheden</h3><p class="small">Dagpengemodtagere som andel af alle ledige fuldtidspersoner.</p><div class="chart"><canvas id="benefitShareChart"></canvas><div class="empty"></div></div><p class="source">Kilde: Jobindsats.dk / STAR, tabel y25i01. Egne beregninger.</p></article>
+</div>
+
+<div class="method"><strong>Metode:</strong> Kommunetal er faktiske, ikke sæsonkorrigerede tal. Indeks 100 bruger den første måned i den viste periode, hvor både kommunen og hele landet har en gyldig observation. Sammenligning af rå antal mellem en kommune og hele landet er fravalgt, fordi forskellen i størrelse gør den misvisende. De afledte andele beregnes inden for samme Jobindsats-måling og enhed. Små tal kan være diskretioneret, så enkelte serier kan mangle for små kommuner.</div>
 </main>
+<footer>Grafik og databehandling: Michel Klos. Kontakt: <a href="mailto:mk@danskeakasser.dk">mk@danskeakasser.dk</a></footer>
 <script>
-let DATA=null, selected='__national__', months=36, charts={};
-const nf=new Intl.NumberFormat('da-DK',{maximumFractionDigits:1});
-const pct=v=>v==null?'–':nf.format(v)+' %';
+let DATA=null,selected='__national__',months=36,charts={};
+const COLORS={selected:'#3d6b47',national:'#E07A40',green:'#6B9E78',blue:'#4A90C4',purple:'#9B59B6',grid:'#E8EBE8',ink:'#0F2B36',muted:'#68777d'};
+const nf0=new Intl.NumberFormat('da-DK',{maximumFractionDigits:0}),nf1=new Intl.NumberFormat('da-DK',{minimumFractionDigits:1,maximumFractionDigits:1});
+const fmtNumber=v=>v==null?'Ikke tilgængelig':nf0.format(v);
+const fmtPct=v=>v==null?'Ikke tilgængelig':nf1.format(v)+' %';
 const latest=(s,k)=>{if(!s||!s.labels?.length)return null;const a=s[k]||[];for(let i=s.labels.length-1;i>=0;i--)if(a[i]!=null)return{p:s.labels[i],v:a[i],i};return null};
 const yearAgo=(s,k,i)=>{if(!s||i==null)return null;const p=s.labels[i],m=String(p).match(/^(\d{4})(M\d{2}|Q\d{2})$/);if(!m)return null;const target=(+m[1]-1)+m[2],j=s.labels.indexOf(target);return j>=0?s[k]?.[j]:null};
 const periodLabel=p=>{const m=String(p||'').match(/^(\d{4})M(\d{2})$/);if(!m)return p||'';return new Intl.DateTimeFormat('da-DK',{month:'short',year:'numeric'}).format(new Date(+m[1],+m[2]-1,1))};
 function entity(){return selected==='__national__'?DATA.national:(DATA.municipalities?.[selected]||null)}
 function national(){return DATA.national||null}
-function allMunicipalities(){return Object.entries(DATA.municipalities||{}).filter(([,v])=>v.unemployment?.labels?.length)}
-function sliceSeries(s,k){if(!s)return{labels:[],values:[]};const n=Math.min(months,s.labels.length);return{labels:s.labels.slice(-n),values:(s[k]||[]).slice(-n)}}
+function compareEnabled(){return selected!=='__national__'&&document.getElementById('compareNational').checked}
+function allMunicipalities(){return Object.entries(DATA.municipalities||{}).filter(([,v])=>!['Hele landet','Uoplyst område'].includes(v.name)&&v.unemployment?.labels?.length)}
 function destroy(id){if(charts[id]){charts[id].destroy();delete charts[id]}}
-function showEmpty(canvas,show,msg='Data er endnu ikke tilgængelige for denne måling.'){const e=canvas.parentElement.querySelector('.empty');e.textContent=msg;e.style.display=show?'flex':'none';canvas.style.display=show?'none':'block'}
-function line(id,labels,datasets,yPct=false){const c=document.getElementById(id);destroy(id);if(!labels?.length||!datasets.some(d=>d.data?.some(v=>v!=null))){showEmpty(c,true);return}showEmpty(c,false);charts[id]=new Chart(c,{type:'line',data:{labels:labels.map(periodLabel),datasets},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},scales:{x:{type:'category',ticks:{maxTicksLimit:12}},y:{beginAtZero:false,ticks:{callback:v=>yPct?pct(v):nf.format(v)}}},plugins:{legend:{position:'bottom'}}}})}
-function bars(id,labels,datasets){const c=document.getElementById(id);destroy(id);if(!labels?.length||!datasets.some(d=>d.data?.some(v=>v!=null))){showEmpty(c,true);return}showEmpty(c,false);charts[id]=new Chart(c,{type:'bar',data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true},y:{stacked:true,beginAtZero:true}},plugins:{legend:{position:'bottom'}}}})}
+function showEmpty(canvas,show,msg='Data er ikke tilgængelige for denne visning.'){const e=canvas.parentElement.querySelector('.empty');e.textContent=msg;e.style.display=show?'flex':'none';canvas.style.display=show?'none':'block'}
 function valueAtPeriod(s,k,p){if(!s?.labels)return null;const i=s.labels.indexOf(p);return i>=0?s[k]?.[i]??null:null}
-function renderKpis(){const m=entity(),s=m?.unemployment,nat=national()?.unemployment;const defs=[['Ledige i alt','total','fuldtidspersoner',false],['Dagpengemodtagere','dagpenge','fuldtidspersoner',false],['Arbejdsmarkedsparate kontanthjælpsmodtagere','kontanthjaelp','fuldtidspersoner',false],['Ledighed','totalRate','af arbejdsstyrken',true]];document.getElementById('kpis').innerHTML=defs.map(([l,k,u,isPct])=>{const x=latest(s,k),y=x?yearAgo(s,k,x.i):null,d=x&&y!=null?x.v-y:null;let bench='';if(isPct&&selected!=='__national__'&&x){const nv=valueAtPeriod(nat,k,x.p);if(nv!=null){const diff=x.v-nv;bench=`<div class="benchmark">Hele landet: ${pct(nv)} · Forskel: ${diff>0?'+':''}${nf.format(diff)} pct.point</div>`}}return`<article class="kpi"><div class="label">${l}</div><div class="value">${x?(isPct?pct(x.v):nf.format(x.v)):'–'}</div><div class="small">${x?periodLabel(x.p):'Ingen data'} · ${u}</div><div class="delta">${d==null?'Årsændring: –':`Årsændring: ${d>0?'+':''}${isPct?nf.format(d)+' pct.point':nf.format(d)}`}</div>${bench}</article>`}).join('')}
-function alignByPeriods(s,k,labels){return labels.map(p=>valueAtPeriod(s,k,p))}
-function renderCharts(){const m=entity(),u=m?.unemployment,nat=national();if(!u){['unemploymentChart','compositionChart','longtermChart','newlyChart','durationChart','exitChart'].forEach(id=>showEmpty(document.getElementById(id),true));return}
- const own=sliceSeries(u,'totalRate'),uSets=[{label:m.name||'Valgt område',data:own.values,borderWidth:3,tension:.2}];if(selected!=='__national__'&&nat?.unemployment)uSets.push({label:'Hele landet',data:alignByPeriods(nat.unemployment,'totalRate',own.labels),borderWidth:2,tension:.2});line('unemploymentChart',own.labels,uSets,true);
- const n=Math.min(months,u.labels.length),labs=u.labels.slice(-n);bars('compositionChart',labs.map(periodLabel),[{label:'Dagpenge',data:(u.dagpenge||[]).slice(-n)},{label:'Kontanthjælp',data:(u.kontanthjaelp||[]).slice(-n)}]);
- const lt=m.longterm;line('longtermChart',lt?.labels?.slice(-months)||[],[{label:'Langtidsledige',data:lt?.total?.slice(-months)||[]},{label:'Dagpenge',data:lt?.dagpenge?.slice(-months)||[]},{label:'Kontanthjælp',data:lt?.kontanthjaelp?.slice(-months)||[]}]);
- const nr=m.newlyRegistered;line('newlyChart',nr?.labels?.slice(-months)||[],[{label:'Nytilmeldte i alt',data:nr?.total?.slice(-months)||[]},{label:'Dagpenge',data:nr?.dagpenge?.slice(-months)||[]},{label:'Kontanthjælp',data:nr?.kontanthjaelp?.slice(-months)||[]}]);
- const d=m.duration||{},dl=d.dagpenge?.labels||d.kontanthjaelp?.labels||[];bars('durationChart',dl,[{label:'Dagpenge',data:alignDur(d.dagpenge,dl)},{label:'Kontanthjælp',data:alignDur(d.kontanthjaelp,dl)}]);
- const e=m.employmentExit,elabs=e?.months?.map(x=>x+' mdr.')||[],eSets=[];if(e){eSets.push({label:(m.name||'Valgt område')+', dagpenge',data:e.dagpenge||[],borderWidth:3,tension:.2},{label:(m.name||'Valgt område')+', kontanthjælp',data:e.kontanthjaelp||[],borderWidth:3,tension:.2})}if(selected!=='__national__'&&nat?.employmentExit){const ne=nat.employmentExit;eSets.push({label:'Hele landet, dagpenge',data:ne.dagpenge||[],borderWidth:2,tension:.2},{label:'Hele landet, kontanthjælp',data:ne.kontanthjaelp||[],borderWidth:2,tension:.2})}line('exitChart',elabs,eSets,true)}
-function alignDur(x,labs){if(!x)return labs.map(()=>null);return labs.map(l=>{const i=x.labels.indexOf(l);return i>=0?x.values[i]:null})}
-function choose(id){selected=id;document.getElementById('municipalitySelect').value=id;renderAll()}
+function align(s,k,labels){return labels.map(p=>valueAtPeriod(s,k,p))}
+function windowLabels(s){return(s?.labels||[]).slice(-Math.min(months,s?.labels?.length||0))}
+function xAxis(){return{type:'category',grid:{display:false},ticks:{color:COLORS.muted,maxRotation:0,autoSkip:true,maxTicksLimit:12,callback:function(v,i){const labels=this.chart.data.labels||[];return periodLabel(labels[v]??labels[i]??v)}}}}
+function yFormat(kind,v){if(kind==='percent')return nf1.format(v)+' %';if(kind==='index')return nf1.format(v);return nf0.format(v)}
+function line(id,labels,datasets,kind='number',beginZero=false){
+  const c=document.getElementById(id);destroy(id);
+  if(!labels?.length||!datasets.some(d=>d.data?.some(v=>v!=null))){showEmpty(c,true);return}
+  showEmpty(c,false);
+  const styled=datasets.map((d,i)=>({...d,borderColor:d.borderColor||(i?COLORS.national:COLORS.selected),backgroundColor:d.backgroundColor||(i?COLORS.national:COLORS.selected),pointRadius:0,pointHoverRadius:4,borderWidth:d.borderWidth||2.3,tension:.18,fill:false,spanGaps:false}));
+  charts[id]=new Chart(c,{type:'line',data:{labels,datasets:styled},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},layout:{padding:{top:10,right:8,bottom:4,left:4}},scales:{x:xAxis(),y:{beginAtZero:beginZero,grid:{color:COLORS.grid},ticks:{color:COLORS.muted,padding:8,callback:v=>yFormat(kind,v)}}},plugins:{legend:{display:styled.length>1,position:'top',align:'start',labels:{usePointStyle:true,boxWidth:12,boxHeight:12,padding:18}},tooltip:{callbacks:{title:items=>periodLabel(items[0]?.label),label:ctx=>ctx.dataset.label+': '+yFormat(kind,ctx.parsed.y)}}}}})
+}
+function stackedBars(id,labels,datasets){
+  const c=document.getElementById(id);destroy(id);
+  if(!labels?.length||!datasets.some(d=>d.data?.some(v=>v!=null))){showEmpty(c,true);return}
+  showEmpty(c,false);
+  charts[id]=new Chart(c,{type:'bar',data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:10,right:8,bottom:4,left:4}},scales:{x:{...xAxis(),stacked:true},y:{stacked:true,beginAtZero:true,grid:{color:COLORS.grid},ticks:{color:COLORS.muted,padding:8,callback:v=>nf0.format(v)}}},plugins:{legend:{position:'top',align:'start',labels:{usePointStyle:true,boxWidth:12,boxHeight:12,padding:18}},tooltip:{callbacks:{title:items=>periodLabel(items[0]?.label),label:ctx=>ctx.dataset.label+': '+nf0.format(ctx.parsed.y)}}}}})
+}
+function indexComparison(own,nat,key,label){
+  let labels=windowLabels(own),ownValues=align(own,key,labels),natValues=compareEnabled()?align(nat,key,labels):null;
+  const start=labels.findIndex((p,i)=>ownValues[i]!=null&&ownValues[i]!==0&&(!natValues||(natValues[i]!=null&&natValues[i]!==0)));
+  if(start<0)return{labels:[],datasets:[]};
+  labels=labels.slice(start);ownValues=ownValues.slice(start);if(natValues)natValues=natValues.slice(start);
+  const ownBase=ownValues[0],datasets=[{label,data:ownValues.map(v=>v==null?null:v/ownBase*100)}];
+  if(natValues){const natBase=natValues[0];datasets.push({label:'Hele landet',data:natValues.map(v=>v==null?null:v/natBase*100)});}
+  return{labels,datasets};
+}
+function ratioSeries(labels,numerator,numKey,denominator,denKey){return labels.map(p=>{const a=valueAtPeriod(numerator,numKey,p),b=valueAtPeriod(denominator,denKey,p);return a!=null&&b?100*a/b:null})}
+function renderKpis(){
+  const m=entity(),s=m?.unemployment,nat=national()?.unemployment;
+  const defs=[['Ledige i alt','total','fuldtidspersoner',false],['Dagpengemodtagere','dagpenge','fuldtidspersoner',false],['Arbejdsmarkedsparate kontanthjælpsmodtagere','kontanthjaelp','fuldtidspersoner',false],['Ledighed','totalRate','af arbejdsstyrken',true]];
+  document.getElementById('kpis').innerHTML=defs.map(([label,key,unit,isPct])=>{
+    const current=latest(s,key),lastYear=current?yearAgo(s,key,current.i):null,delta=current&&lastYear!=null?current.v-lastYear:null;
+    let benchmark='';
+    if(isPct&&compareEnabled()&&current){const nationalValue=valueAtPeriod(nat,key,current.p);if(nationalValue!=null){const diff=current.v-nationalValue;benchmark=`<div class="benchmark">Hele landet: ${fmtPct(nationalValue)} | Forskel: ${diff>0?'+':''}${nf1.format(diff)} pct.point</div>`}}
+    return`<article class="kpi"><div class="label">${label}</div><div class="value">${current?(isPct?fmtPct(current.v):fmtNumber(current.v)):'Ikke tilgængelig'}</div><div class="small">${current?periodLabel(current.p):'Ingen data'} | ${unit}</div><div class="delta">${delta==null?'Årsændring: Ikke tilgængelig':`Årsændring: ${delta>0?'+':''}${isPct?nf1.format(delta)+' pct.point':nf0.format(delta)}`}</div>${benchmark}</article>`
+  }).join('')
+}
+function renderCharts(){
+  const m=entity(),nat=national(),u=m?.unemployment,nu=nat?.unemployment;
+  if(!u){['unemploymentChart','compositionChart','longtermChart','unemploymentIndexChart','longtermIndexChart','longtermShareChart','benefitShareChart'].forEach(id=>showEmpty(document.getElementById(id),true));return}
+  const ownLabels=windowLabels(u),rateSets=[{label:m.name||'Valgt område',data:align(u,'totalRate',ownLabels)}];
+  if(compareEnabled()&&nu)rateSets.push({label:'Hele landet',data:align(nu,'totalRate',ownLabels)});
+  line('unemploymentChart',ownLabels,rateSets,'percent',true);
+  stackedBars('compositionChart',ownLabels,[{label:'Dagpenge',data:align(u,'dagpenge',ownLabels),backgroundColor:COLORS.green},{label:'Kontanthjælp',data:align(u,'kontanthjaelp',ownLabels),backgroundColor:COLORS.blue}]);
+  const lt=m.longterm,ltLabels=windowLabels(lt);
+  line('longtermChart',ltLabels,[{label:'Langtidsledige i alt',data:align(lt,'total',ltLabels),borderColor:COLORS.selected},{label:'Dagpenge',data:align(lt,'dagpenge',ltLabels),borderColor:COLORS.blue},{label:'Kontanthjælp',data:align(lt,'kontanthjaelp',ltLabels),borderColor:COLORS.orange}]);
+  let indexed=indexComparison(u,nu,'total',m.name||'Valgt område');line('unemploymentIndexChart',indexed.labels,indexed.datasets,'index');
+  indexed=indexComparison(lt,nat?.longterm,'total',m.name||'Valgt område');line('longtermIndexChart',indexed.labels,indexed.datasets,'index');
+  const shareLabels=windowLabels(lt),longShareSets=[{label:m.name||'Valgt område',data:ratioSeries(shareLabels,lt,'dagpenge',lt,'total')}];
+  if(compareEnabled()&&nat?.longterm)longShareSets.push({label:'Hele landet',data:ratioSeries(shareLabels,nat.longterm,'dagpenge',nat.longterm,'total')});
+  line('longtermShareChart',shareLabels,longShareSets,'percent',true);
+  const benefitSets=[{label:m.name||'Valgt område',data:ratioSeries(ownLabels,u,'dagpenge',u,'total')}];
+  if(compareEnabled()&&nu)benefitSets.push({label:'Hele landet',data:ratioSeries(ownLabels,nu,'dagpenge',nu,'total')});
+  line('benefitShareChart',ownLabels,benefitSets,'percent',true)
+}
 function renderAll(){renderKpis();renderCharts()}
-async function boot(){const r=await fetch('data/dashboard-data.json',{cache:'no-store'});DATA=await r.json();document.getElementById('updated').textContent='Opdateret '+(DATA.meta?.updated||'');const st=DATA.meta?.updateStatus;if(st?.state&&st.state!=='ok'){const box=document.getElementById('status');box.style.display='block';box.textContent=st.state==='pending'?'Dashboardet er klargjort. Første dataopdatering afventer Jobindsats-kørsel.':'Delvist opdateret. Ikke alle datakilder kunne hentes: '+(st.failed||[]).join(', ')}const entries=allMunicipalities().sort((a,b)=>a[1].name.localeCompare(b[1].name,'da'));const sel=document.getElementById('municipalitySelect');sel.innerHTML='<option value="__national__">Hele landet</option>'+entries.map(([id,m])=>`<option value="${id}">${m.name}</option>`).join('');selected='__national__';sel.value=selected;sel.onchange=()=>choose(sel.value);document.querySelectorAll('.range button').forEach(b=>b.onclick=()=>{months=+b.dataset.months;document.querySelectorAll('.range button').forEach(x=>x.classList.toggle('active',x===b));renderCharts()});renderAll()}
-boot().catch(e=>{const b=document.getElementById('status');b.style.display='block';b.textContent='Dashboarddata kunne ikke indlæses: '+e.message});
-</script></body></html>
+function choose(id){selected=id;const toggle=document.getElementById('compareNational');toggle.disabled=id==='__national__';renderAll()}
+async function boot(){
+  const response=await fetch('data/dashboard-data.json',{cache:'no-store'});if(!response.ok)throw new Error('HTTP '+response.status);DATA=await response.json();
+  document.getElementById('updated').textContent='Opdateret '+(DATA.meta?.updated||'');
+  const status=DATA.meta?.updateStatus;if(status?.state&&status.state!=='ok'){const box=document.getElementById('status');box.style.display='block';box.textContent='Delvist opdateret. Ikke alle aktive datakilder kunne hentes: '+(status.failed||[]).join(', ')}
+  const entries=allMunicipalities().sort((a,b)=>a[1].name.localeCompare(b[1].name,'da')),select=document.getElementById('municipalitySelect');
+  select.innerHTML='<option value="__national__">Hele landet</option>'+entries.map(([id,m])=>`<option value="${id}">${m.name}</option>`).join('');
+  selected='__national__';select.value=selected;document.getElementById('compareNational').disabled=true;
+  select.onchange=()=>choose(select.value);document.getElementById('compareNational').onchange=renderAll;
+  document.querySelectorAll('.range button').forEach(button=>button.onclick=()=>{months=+button.dataset.months;document.querySelectorAll('.range button').forEach(x=>x.classList.toggle('active',x===button));renderCharts()});
+  renderAll()
+}
+boot().catch(error=>{const box=document.getElementById('status');box.style.display='block';box.textContent='Dashboarddata kunne ikke indlæses: '+error.message});
+</script>
+</body>
+</html>
