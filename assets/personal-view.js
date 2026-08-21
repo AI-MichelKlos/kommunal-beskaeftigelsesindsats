@@ -67,8 +67,12 @@
   function injectControls(){
     const toolbar=document.querySelector('.toolbar');if(!toolbar||document.getElementById('pvControls'))return;
     const tools=document.createElement('div');tools.className='pv-tools';tools.id='pvControls';
-    tools.innerHTML='<details class="pv-details"><summary>Tilpas visning</summary><div class="pv-panel"><strong>Vælg hvad du vil se</strong><div id="pvModules"></div><div class="pv-note">Dine valg gemmes kun i denne browser.</div></div></details><button class="pv-btn" id="pvShare" type="button">Del min visning</button><button class="pv-btn" id="pvReset" type="button">Nulstil</button><span class="pv-feedback" id="pvFeedback"></span>';
+    tools.innerHTML='<details class="pv-details" id="pvDetails"><summary>Tilpas visning</summary><div class="pv-panel"><strong>Vælg hvad du vil se</strong><div id="pvModules"></div><div class="pv-note">Dine valg gemmes kun i denne browser.</div></div></details><button class="pv-btn" id="pvShare" type="button">Del min visning</button><button class="pv-btn" id="pvReset" type="button">Nulstil</button><span class="pv-feedback" id="pvFeedback"></span>';
     const updated=document.getElementById('updated');toolbar.insertBefore(tools,updated||null);refreshChecks();
+    const details=document.getElementById('pvDetails');
+    details?.addEventListener('mouseleave',()=>details.removeAttribute('open'));
+    document.addEventListener('pointerdown',e=>{if(details?.open&&!details.contains(e.target))details.removeAttribute('open');});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&details?.open)details.removeAttribute('open');});
     document.getElementById('pvShare').addEventListener('click',async()=>{
       const url=new URL(location.href);url.searchParams.set(PARAM,encodeState(currentState()));
       try{await navigator.clipboard.writeText(url.toString());document.getElementById('pvFeedback').textContent='Link kopieret';}
