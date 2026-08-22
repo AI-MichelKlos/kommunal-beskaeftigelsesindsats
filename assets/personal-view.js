@@ -34,7 +34,7 @@
       hidden:hiddenKeys()
     };
   }
-  function save(){if(applying)return;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(currentState()));}catch(_){}}
+  function save(){if(applying)return;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(currentState()));}catch(_){} }
   function applyVisibility(hidden){
     const set=new Set(Array.isArray(hidden)?hidden:[]);
     modules().forEach(m=>m.nodes.forEach(n=>n.hidden=set.has(m.key)));
@@ -62,7 +62,7 @@
   }
   function injectStyle(){
     const style=document.createElement('style');
-    style.textContent='.pv-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.pv-details{position:relative}.pv-details>summary,.pv-btn{list-style:none;cursor:pointer;border:1px solid #d6dfd9;border-radius:8px;background:#fff;color:var(--ink);padding:9px 11px;font:inherit;font-weight:650}.pv-details>summary::-webkit-details-marker{display:none}.pv-details[open]>summary{border-color:var(--green)}.pv-panel{position:absolute;z-index:80;top:calc(100% + 6px);right:0;width:min(360px,88vw);background:#fff;border:1px solid #dfe5e1;border-radius:10px;box-shadow:0 12px 30px rgba(15,43,54,.18);padding:12px}.pv-panel strong{display:block;margin-bottom:8px}.pv-option{display:flex;gap:8px;align-items:center;padding:6px 2px;font-size:.84rem}.pv-option input{accent-color:var(--green2)}.pv-note{font-size:.76rem;color:var(--muted);margin:8px 0 2px}.pv-feedback{font-size:.78rem;color:var(--green2);font-weight:650}.pv-btn:hover,.pv-details>summary:hover{background:#f7faf8}@media(max-width:560px){.pv-tools{width:100%}.pv-panel{position:fixed;left:16px;right:16px;top:20%;width:auto;max-height:65vh;overflow:auto}}';document.head.appendChild(style);
+    style.textContent='.hero{background-color:#315B48!important;background-image:linear-gradient(135deg,rgba(49,91,72,.70),rgba(24,57,45,.88)),url("https://raw.githubusercontent.com/AI-MichelKlos/A-kasseindsigt-dashboard/main/assets/arbejdsmarkedets-puls.webp")!important;background-position:center 46%,center!important;background-size:cover,cover!important;background-repeat:no-repeat,no-repeat!important}.pv-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.pv-details{position:relative}.pv-details>summary,.pv-btn{list-style:none;cursor:pointer;border:1px solid #d6dfd9;border-radius:8px;background:#fff;color:var(--ink);padding:9px 11px;font:inherit;font-weight:650}.pv-details>summary::-webkit-details-marker{display:none}.pv-details[open]>summary{border-color:var(--green)}.pv-panel{position:absolute;z-index:80;top:calc(100% + 6px);right:0;width:min(360px,88vw);background:#fff;border:1px solid #dfe5e1;border-radius:10px;box-shadow:0 12px 30px rgba(15,43,54,.18);padding:12px}.pv-panel strong{display:block;margin-bottom:8px}.pv-option{display:flex;gap:8px;align-items:center;padding:6px 2px;font-size:.84rem}.pv-option input{accent-color:var(--green2)}.pv-note{font-size:.76rem;color:var(--muted);margin:8px 0 2px}.pv-feedback{font-size:.78rem;color:var(--green2);font-weight:650}.pv-btn:hover,.pv-details>summary:hover{background:#f7faf8}@media(max-width:560px){.hero{background-position:58% center,center!important}.pv-tools{width:100%}.pv-panel{position:fixed;left:16px;right:16px;top:20%;width:auto;max-height:65vh;overflow:auto}}';document.head.appendChild(style);
   }
   function injectControls(){
     const toolbar=document.querySelector('.toolbar');if(!toolbar||document.getElementById('pvControls'))return;
