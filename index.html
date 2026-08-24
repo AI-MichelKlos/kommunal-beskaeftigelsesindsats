@@ -142,7 +142,7 @@ function renderKpis(){
     const current=latest(s,key),lastYear=current?yearAgo(s,key,current.i):null,delta=current&&lastYear!=null?current.v-lastYear:null;
     let benchmark='';
     if(isPct&&compareEnabled()&&current){const otherValue=valueAtPeriod(otherSeries,key,current.p);if(otherValue!=null){const diff=current.v-otherValue;benchmark=`<div class="benchmark">${other.name||'Sammenligningsområde'}: ${fmtPct(otherValue)} | Forskel: ${diff>0?'+':''}${nf1.format(diff)} pct.point</div>`}}
-    return`<article class="kpi"><div class="label">${label}</div><div class="value">${current?(isPct?fmtPct(current.v):fmtNumber(current.v)):'Ikke tilgængelig'}</div><div class="small">${current?periodLabel(current.p):'Ingen data'} | ${unit}</div><div class="delta">${delta==null?'Årsændring: Ikke tilgængelig':`Årsændring: ${delta>0?'+':''}${isPct?nf1.format(delta)+' pct.point':nf0.format(delta)}`}</div>${benchmark}</article>`
+    return`<article class="kpi"><div class="label">${label}</div><div class="value">${current?(isPct?fmtPct(current.v):fmtNumber(current.v)):'Ikke tilgængelig'}</div><div class="small">${current?periodLabel(current.p):'Ingen data'} | ${unit} | <abbr title="Ikke sæsonkorrigeret">ikke sæsonkorr.</abbr></div><div class="delta">${delta==null?'Årsændring: Ikke tilgængelig':`Årsændring: ${delta>0?'+':''}${isPct?nf1.format(delta)+' pct.point':nf0.format(delta)}`}</div>${benchmark}</article>`
   }).join('')
 }
 function comparisonBenchmark(ownCurrent,otherSeries,key){
