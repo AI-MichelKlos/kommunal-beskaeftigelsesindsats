@@ -1,3 +1,5 @@
-status: ok
-tid_utc: 2026-08-23T07:53:47Z
-dato_dk: 2026-08-23
+status: fejl
+tid_utc: 2026-08-24T07:12:32Z
+dato_dk: 2026-08-24
+trin: opdatering
+fejl: OK: personlig visning og kontaktmail er opdateret i Kommuneindsigt Opdateret: partial. Kommuner: 98. Nationale sektioner: 6 Traceback (most recent call last): File "/home/runner/work/kommunal-beskaeftigelsesindsats/kommunal-beskaeftigelsesindsats/scripts/validate_dashboard.py", line 12, in <module> assert state=='ok', f'Aktive kilder er ikke fuldt opdateret: {state}' ^^^^^^^^^^^ AssertionError: Aktive kilder er ikke fuldt opdateret: partial 
