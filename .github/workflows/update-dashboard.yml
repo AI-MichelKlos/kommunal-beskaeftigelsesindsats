@@ -32,6 +32,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # Brug seneste data og kode også ved genkørsel af et tidligere job.
+          ref: main
       - name: Afgør om dagens kørsel er nødvendig
         id: gate
         shell: bash
