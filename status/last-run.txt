@@ -1,5 +1,3 @@
-status: fejl
-tid_utc: 2026-09-10T12:16:59Z
-dato_dk: 2026-09-10
-trin: opdatering
-fejl: OK: personlig visning og kontaktmail er opdateret i Kommuneindsigt Traceback (most recent call last): File "/home/runner/work/kommunal-beskaeftigelsesindsats/kommunal-beskaeftigelsesindsats/scripts/update_dashboard.py", line 556, in <module> main() File "/home/runner/work/kommunal-beskaeftigelsesindsats/kommunal-beskaeftigelsesindsats/scripts/update_dashboard.py", line 531, in main raise RuntimeError('Ingen kommunedata kunne hentes') RuntimeError: Ingen kommunedata kunne hentes 
+status: ok
+tid_utc: 2026-09-11T10:55:56Z
+dato_dk: 2026-09-11
