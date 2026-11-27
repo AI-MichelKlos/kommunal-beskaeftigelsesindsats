@@ -1,3 +1,3 @@
 status: ok
-tid_utc: 2026-11-26T17:49:42Z
-dato_dk: 2026-11-26
+tid_utc: 2026-11-27T17:33:50Z
+dato_dk: 2026-11-27
